@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import './gesture-handler'; 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -39,7 +39,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
           {
             color: isDarkMode ? Colors.white : Colors.black,
           },
-        ]}>
+        ]}>†
         {title}
       </Text>
       <Text
