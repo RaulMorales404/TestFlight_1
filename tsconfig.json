@@ -1,3 +1,13 @@
 {
+  "compilerOptions":{
+    "baseUrl": "src",
+    "allowJs": true,
+    "paths": {
+      "@components/*":["components/*"],
+      "@screens/*":["screens/*"], 
+      "@assets/*":["assets/*"], 
+    }
+
+  },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }
