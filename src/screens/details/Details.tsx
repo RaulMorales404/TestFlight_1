@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -10,43 +10,38 @@ import {
 import {styles} from './styles';
 import Trend from '@components/trend/Trend';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {DataNews} from 'interfaces/dataNews';
 import {ScreenRouteStackProp} from 'navigation/StackNavigation';
 import {useFormatDate} from '@components/hooks/useFormatDate';
-import {  IconArroLeft } from '@assets/icons-svgs'; 
+import {IconArroLeft} from '@assets/icons-svgs';
+import { Article } from '@services/interfaces/articlesInterface';
 
 const Details = () => {
   const navigation = useNavigation();
   const getDataRoute = useRoute<ScreenRouteStackProp>();
   const {formattedDate} = useFormatDate();
-  
-  const dataDetails: DataNews = getDataRoute.params?.dataDetails || {
-    id: '',
-    url: '',
-    title: '',
-    desc: '',
-    imgAuthor: '',
+
+  const dataDetails: Article = getDataRoute.params?.dataDetails || {
+    source: {id: '', name: ''},
     author: '',
+    title: '',
+    description: '',
+    url: '',
+    urlToImage: '',
     publishedAt: '',
+    content: '',
   };
 
-  
-  
-   
-  
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <SafeAreaView>
         <View>
-          <Image source={{uri: dataDetails.url}} style={styles.img} />
+          <Image source={{uri:dataDetails.urlToImage }} style={styles.img} />
 
-          <View style={[styles.containerIconBack,{ backgroundColor:'black'}]}>
+          <View style={[styles.containerIconBack, {backgroundColor: 'black'}]}>
             <TouchableOpacity
               style={styles.buttonGoBack}
               onPress={() => navigation.goBack()}>
-             
-              <IconArroLeft  color={'#fff'}  />
-            
+              <IconArroLeft color={'#fff'} />
             </TouchableOpacity>
           </View>
 
@@ -59,10 +54,10 @@ const Details = () => {
           <View style={styles.containerAuthor}>
             <View style={styles.containerAuthor}>
               <Image
-                source={{uri: dataDetails.imgAuthor}}
+                source={{uri: dataDetails.urlToImage}}
                 style={styles.imgAuthor}
               />
-              <Text style={styles.authorText}>{dataDetails.author}</Text>
+              <Text numberOfLines={1} ellipsizeMode="clip"   style={styles.authorText}>{dataDetails.author}</Text>
             </View>
 
             <View style={styles.continerPublished}>
@@ -72,7 +67,8 @@ const Details = () => {
             </View>
           </View>
           <View>
-            <Text style={styles.descText}>{dataDetails.desc}</Text>
+            <Text style={styles.descText}>{dataDetails.description}</Text>
+            <Text style={styles.descText}>{dataDetails.content}</Text>
           </View>
         </View>
         <Trend />

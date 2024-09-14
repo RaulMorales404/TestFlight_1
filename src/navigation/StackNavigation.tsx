@@ -4,12 +4,13 @@ import Details from '@screens/details/Details';
 import Home from '@screens/home/Home';
 import { DataNews } from 'interfaces/dataNews';
 import { RouteProp } from '@react-navigation/native';
+import { Article } from '@services/interfaces/articlesInterface';
 
 
 export type RootStackParamList = {
   Home: undefined;
   Details: {
-    dataDetails:DataNews
+    dataDetails:Article
   };
 };
 

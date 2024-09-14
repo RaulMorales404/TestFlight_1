@@ -58,7 +58,8 @@ export const styles = StyleSheet.create({
   authorText: {
     fontSize: 13,
     color: '#818181',
-    fontWeight: '500',
+    fontWeight: '500', 
+    maxWidth:140
   },
   descText: {
     fontSize: 14,
