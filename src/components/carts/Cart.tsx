@@ -1,5 +1,5 @@
  
-import {Image, Text, View} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 import {styles} from './style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -7,11 +7,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from 'navigation/HomeStackNavigation';
 import { useFormatDate } from '../hooks/useFormatDate';
 import { Article } from '@services/interfaces/articlesInterface';
-
+ 
 type DetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Details'>;
 
 export const Cart = (data:Article) => {
-  
   const navigation = useNavigation<DetailsScreenNavigationProp>()
   const {formattedDate} = useFormatDate();
 
@@ -23,6 +22,9 @@ export const Cart = (data:Article) => {
     })
   }
 
+  
+
+ 
 
 
   if(!data.urlToImage)return;
@@ -45,7 +47,6 @@ export const Cart = (data:Article) => {
         <View style={styles.containerDesc}>
           <Text numberOfLines={3} ellipsizeMode="clip" style={styles.descText}>
             {data.description} 
-            {/* <Text style={styles.readMore}>Read More</Text> */}
           </Text>
           <Text style={styles.readMore}>Read More</Text>
         </View>

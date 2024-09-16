@@ -1,20 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const useDebouncedSearch = (textInput: string, delay: number = 500, action: (text: string) => void) => {
+  const handlerRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
-    if (textInput.trim() === '') {
-      // No hacer nada si textInput está vacío
-      return;
+    // Limpiar el temporizador anterior si existe
+    if (handlerRef.current) {
+      clearTimeout(handlerRef.current);
     }
 
-    const handler = setTimeout(() => {
+    // Establecer un nuevo temporizador
+    handlerRef.current = setTimeout(() => {
       action(textInput);
     }, delay);
 
+    // Limpieza del efecto
     return () => {
-      clearTimeout(handler);
+      if (handlerRef.current) {
+        clearTimeout(handlerRef.current);
+      }
     };
-  }, [textInput, delay, action]);
+  }, [textInput]);
 };
 
 export default useDebouncedSearch;

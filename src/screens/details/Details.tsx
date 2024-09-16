@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -19,7 +19,8 @@ const Details = () => {
   const navigation = useNavigation();
   const getDataRoute = useRoute<ScreenRouteStackProp>();
   const {formattedDate} = useFormatDate();
-
+  const scrollViewRef = useRef<ScrollView>(null);
+ 
   const dataDetails: Article = getDataRoute.params?.dataDetails || {
     source: {id: '', name: ''},
     author: '',
@@ -31,8 +32,13 @@ const Details = () => {
     content: '',
   };
 
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+  }, [dataDetails]);
+ 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}  ref={scrollViewRef}>
       <SafeAreaView>
         <View>
           <Image source={{uri:dataDetails.urlToImage }} style={styles.img} />

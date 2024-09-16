@@ -1,4 +1,4 @@
-import { Animated, Image, Text, View, TextStyle, ViewStyle, StyleProp, ImageStyle } from 'react-native';
+import {Image, Text, View, TextStyle, ViewStyle, StyleProp, ImageStyle, FlatList } from 'react-native';
 import {styles} from './styles'; 
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -6,6 +6,8 @@ import {RootStackParamList} from 'navigation/HomeStackNavigation';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {  IconLike } from '@assets/icons-svgs';
 import { Article } from '@services/interfaces/articlesInterface';
+import { getStoreArticles } from '@services/localStorage/LocalStore'; 
+import { useEffect, useState } from 'react';
 
  
 interface Props {
@@ -24,13 +26,39 @@ type DetailsScreenNavigationProp = StackNavigationProp<
   'Details'
 >;
 
+
+
+
 const Trend = ({data,title = true, horizontal = true,
   containerStyle,titleStyle,
   descStyle,
   imgCart,
   containerCartStyle}: Props) => {
-
+    const [articles, setArticles] = useState<Article[]>([]);
   const navigation = useNavigation<DetailsScreenNavigationProp>();
+
+
+
+  const getArticlesStore = async () => {
+    const articlesStorage = await getStoreArticles();
+  
+    if (articlesStorage && articlesStorage.length > 0) {
+      // Obtener los primeros 5 elementos más recientes
+      const fiveMoreRecent = articlesStorage.slice(0, 6);
+      
+      // Verificar si existen artículos recientes y actualizarlos en el estado
+      if (fiveMoreRecent.length) {
+        setArticles(fiveMoreRecent);
+      }
+    }
+  };
+  
+
+
+useEffect(() => {
+  getArticlesStore();
+  return () => { };
+}, []);
 
   const showDetails = (data: Article) => {
     navigation.navigate('Details',{
@@ -79,9 +107,9 @@ const Trend = ({data,title = true, horizontal = true,
   return (
     <View style={[styles.containerRecents,containerStyle]}>
       { title && <Text style={styles.titleRecents}>TENDENCIAS</Text>}
-      <Animated.FlatList
+      <FlatList
         horizontal={horizontal}
-        data={data}
+        data={data?data:articles}
         showsHorizontalScrollIndicator={!horizontal}
         showsVerticalScrollIndicator={horizontal}
         ItemSeparatorComponent={() => {

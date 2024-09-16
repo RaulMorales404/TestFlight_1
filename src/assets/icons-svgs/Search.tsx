@@ -1,5 +1,5 @@
 import React from 'react';
-import {SvgProps, Svg, Path} from 'react-native-svg';
+import {SvgProps, Svg, Path, G} from 'react-native-svg';
 
 function SvgSearch({...props}: SvgProps) {
   if (!props.width) {
@@ -9,14 +9,17 @@ function SvgSearch({...props}: SvgProps) {
     props.height = 24;
   }
   return (
-    <Svg width={32} fill="none" height={32} {...props}>
-      <Path
-        stroke={props.color || '#595D5F'}
-        stroke-width={2}
-        strokeLinecap="round"
-        strokeLinejoin="round" 
-        d="M11.5 21a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19M22 22l-2-2"/>
-          </Svg>
+
+<Svg viewBox="0 0 24 24" fill="none" {...props}>
+<G
+  stroke={props.color || '#595D5F'}
+  strokeWidth={1.5}
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  <Path d="M11.5 21a9.5 9.5 0 100-19 9.5 9.5 0 000 19zM22 22l-2-2" />
+</G>
+</Svg>
   );
 }
 export default React.memo(SvgSearch);
