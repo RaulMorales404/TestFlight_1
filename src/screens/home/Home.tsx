@@ -1,60 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar, View, Animated, Text} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Cart} from '@components/carts/Cart';   
-import { getArticlesServices } from '@services/articles';
-import { Article } from '../../services/interfaces/articlesInterface';
-import { FilterButton } from '@components/filters/FilterButton';
-import { styles } from './stylesHome';
-
- 
-
- 
+import {Cart} from '@components/carts/Cart';
+import {getArticlesServices} from '@services/articles';
+import {Article} from '../../services/interfaces/articlesInterface';
+import {FilterButton} from '@components/filters/FilterButton';
+import {styles} from './stylesHome';
 
 const Home = () => {
-
-
-
-  const [articles,setArticles]= useState<Article[]>();
-
+  const [articles, setArticles] = useState<Article[]>();
 
   const renderItem = ({item}: {item: Article}) => {
     return <Cart {...item} />;
   };
 
- 
-
-  const getAllArticles  = async () => {
+  const getAllArticles = async () => {
     try {
-       const response = await getArticlesServices();
-       setArticles(response); 
-      
+      const response = await getArticlesServices();
+      setArticles(response);
     } catch (error) {
-      console.log("error",error)
-      
+      console.log('error', error);
     }
-  }
+  };
 
- 
-  useEffect(()=>{
+  useEffect(() => {
     getAllArticles();
-  },[])
+  }, []);
 
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
       <SafeAreaView style={{flex: 1, marginTop: StatusBar.currentHeight || 0}}>
-        <View style={{marginLeft:10}}>
+        <View style={{marginLeft: 10}}>
           <Text style={styles.titleHeader}>News App</Text>
         </View>
-        <FilterButton />  
+        <FilterButton />
         <Animated.FlatList
           data={articles}
           ListHeaderComponent={
-            <View style={{paddingBottom: 20}}>
-              <Text>Hola</Text>
-            </View>
-             
-           
+            <View style={{paddingBottom: 20}}>{/* <Text>Hola</Text> */}</View>
           }
           renderItem={renderItem}
           style={{backgroundColor: 'white'}}

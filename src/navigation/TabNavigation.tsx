@@ -2,13 +2,16 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Reactions from '@screens/reactions/Reactions';
-import HomeStackNavigation from './StackNavigation'; 
-import { IconHeart, IconHome, IconSearch } from '@assets/icons-svgs';
+import HomeStackNavigation from './HomeStackNavigation'; 
+import { IconHeart, IconHome, IconLike, IconSearch } from '@assets/icons-svgs';
+import Search from '@screens/search/Search';
+import SearchStackNavigation from './SearchStackNavigation';
+import LikesStackNavigation from './LikesStackNavigation';
 
 type RootTabParamsList = {
   Main: undefined;
-  Reactions: undefined;
-  Search: undefined;
+  NavigationLiks: undefined;
+  SearchNavigation: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamsList>();
@@ -23,7 +26,17 @@ const CustomTabBarButton = ({ children, onPress, accessibilityState, label,color
         alignItems: 'center',
         borderRadius:100,
         marginHorizontal: 20,
-      } ,focused?{...styles.shadow}:{},]}
+      } ,focused?{
+        shadowColor: '#ffffff',
+        shadowOffset: {
+          width: 0,
+          height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 10,
+
+      }:{},]}
       onPress={onPress}
     >
       <View
@@ -60,7 +73,16 @@ const TabNavigation = () => {
           height: 65,
           paddingBottom:40,
           padding:10,
-          ...styles.shadow,
+         
+            shadowColor: '#ffffff',
+            shadowOffset: {
+              width: 0,
+              height: 10,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.5,
+            elevation: 10,
+       
           justifyContent: 'space-between',
           alignItems: 'center',
         },
@@ -72,6 +94,7 @@ const TabNavigation = () => {
         options={{
           tabBarLabel: 'Home',
           headerShown: false,
+          
           tabBarIcon: ({ color }) => <IconHome color={color} />,
           tabBarButton: (props) => (
             <CustomTabBarButton {...props} label="Home" />
@@ -79,42 +102,32 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={Reactions}
+        name="SearchNavigation"
+        component={SearchStackNavigation}
         options={{
           tabBarLabel: 'Search',
+          headerShown: false, 
           tabBarIcon: ({ color }) => <IconSearch color={color} />,
           tabBarButton: (props) => (
-            <CustomTabBarButton {...props} label="Search" />
+            <CustomTabBarButton {...props} label="Seah" />
           ),
         }}
       />
       <Tab.Screen
-        name="Reactions"
-        component={Reactions}
+        name="NavigationLiks"
+        component={LikesStackNavigation}
         options={{
-          tabBarLabel: 'Reactions',
-          tabBarIcon: ({ color }) => <IconHeart color={color} />,
+          tabBarLabel: 'Me gusta',
+          headerShown: false, 
+          tabBarIcon: ({ color }) => <IconLike color={color} />,
           tabBarButton: (props) => (
-            <CustomTabBarButton {...props} label="Reactions" />
+            <CustomTabBarButton {...props} label="Me gusta" />
           ),
         }}
       />
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: '#ffffff',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 10,
-  },
-});
+ 
 
 export default TabNavigation;

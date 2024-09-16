@@ -10,7 +10,7 @@ import {
 import {styles} from './styles';
 import Trend from '@components/trend/Trend';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {ScreenRouteStackProp} from 'navigation/StackNavigation';
+import {ScreenRouteStackProp} from 'navigation/HomeStackNavigation';
 import {useFormatDate} from '@components/hooks/useFormatDate';
 import {IconArroLeft} from '@assets/icons-svgs';
 import { Article } from '@services/interfaces/articlesInterface';

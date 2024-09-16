@@ -4,7 +4,7 @@ import {styles} from './style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'navigation/StackNavigation';
+import { RootStackParamList } from 'navigation/HomeStackNavigation';
 import { useFormatDate } from '../hooks/useFormatDate';
 import { Article } from '@services/interfaces/articlesInterface';
 

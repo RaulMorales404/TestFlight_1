@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Details from '@screens/details/Details';
-import Home from '@screens/home/Home';
-import { DataNews } from 'interfaces/dataNews';
+import Home from '@screens/home/Home'; 
 import { RouteProp } from '@react-navigation/native';
 import { Article } from '@services/interfaces/articlesInterface';
 
@@ -26,8 +25,6 @@ const HomeStackNavigation = () => {
       <Stack.Screen name="Details" 
       options={{ headerShown: false}}
       component={Details} 
-      
-      
       />
     </Stack.Navigator>
   );

@@ -1,15 +1,20 @@
+import HttpAxiosResponse from '@api/axios';
+import {Articles} from './interfaces/articlesInterface';
 
-import HttpAxiosResponse from "@api/axios"; 
-import { Articles } from "./interfaces/articlesInterface";
+export const getArticlesServices = async () => {
+  const responseArticles = await HttpAxiosResponse.get<Articles>(
+    'top-headlines',
+    {
+      params: {
+        country: 'us', 
+      },
+    },
+  );
+  return responseArticles.data.articles;
+};
 
- 
- 
 
- 
-export const getArticlesServices = async  ()  => {
-    const responseArticles = await HttpAxiosResponse.get<Articles>('top-headlines');
-    return responseArticles.data.articles;
-   
-}
-
-
+export const searchArticlesServices = async (value: string) => {
+  const responseSearch = await HttpAxiosResponse.get(`everything?q=${value}`);
+  return responseSearch.data.articles;
+};
