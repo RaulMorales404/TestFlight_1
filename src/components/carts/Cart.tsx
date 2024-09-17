@@ -11,6 +11,8 @@ import { Article } from '@services/interfaces/articlesInterface';
 type DetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Details'>;
 
 export const Cart = (data:Article) => {
+  if(!data.urlToImage)return;
+  
   const navigation = useNavigation<DetailsScreenNavigationProp>()
   const {formattedDate} = useFormatDate();
 
@@ -23,11 +25,7 @@ export const Cart = (data:Article) => {
   }
 
   
-
- 
-
-
-  if(!data.urlToImage)return;
+  
 
   return (
     <TouchableOpacity

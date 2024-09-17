@@ -7,9 +7,11 @@ import {Article} from '../../services/interfaces/articlesInterface';
 import {FilterButton} from '@components/filters/FilterButton';
 import {styles} from './stylesHome';
 import {getStoreArticles, setStoreArticles} from '@services/localStorage/LocalStore';
-
+import { LoadingCardArticles } from '@components/loadings/LoadingAcrdsArticles';
+ 
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading,setIsLoading] = useState(false);
 
   const saveArticlesStore = async (data: Article[]) => {
     if (data) {
@@ -26,12 +28,15 @@ const Home = () => {
 
   const getAllArticles = async () => {
     try {
+      setIsLoading(true);
       const response = await getArticlesServices();
       setArticles(response);
       saveArticlesStore(response);
+      setIsLoading(false);
     } catch (error) {
       console.log('error', error);
       getArticlesStore();
+      setIsLoading(false);
     }
   };
 
@@ -51,10 +56,10 @@ const Home = () => {
           <Text style={styles.titleHeader}>News App</Text>
         </View>
         <FilterButton />
-        <Animated.FlatList
+       {!isLoading && <Animated.FlatList
           data={articles}
           ListHeaderComponent={
-            <View style={{paddingBottom: 20}}>{/* <Text>Hola</Text> */}</View>
+            <View style={{paddingBottom: 20}}/>
           }
           renderItem={renderItem}
           style={{backgroundColor: 'white'}}
@@ -62,16 +67,11 @@ const Home = () => {
           ItemSeparatorComponent={() => <View style={{height: 0}} />}
           keyExtractor={(item, index) => item.title + index}
           scrollEventThrottle={16}
-          getItemLayout={(data, index) => ({
-            length: 100, // Aquí podrías ajustar el tamaño del ítem
-            offset: 100 * index, // Si sabes el tamaño de cada elemento, ajusta aquí también
-            index,
-          })}
-          initialNumToRender={10} // Renderiza solo 10 elementos inicialmente
-          maxToRenderPerBatch={10} // Límite de artículos renderizados por lote
-          windowSize={6} // Cantidad de ítems fuera de la pantalla a mantener en el DOM
-        />
+          />}
+          {isLoading && <LoadingCardArticles/> }
       </SafeAreaView>
+
+      
     </GestureHandlerRootView>
   );
 };
