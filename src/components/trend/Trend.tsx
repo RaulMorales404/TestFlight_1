@@ -67,8 +67,8 @@ const Trend = ({
   }, []);
 
   const showDetails = useCallback(
-    (data: Article) => {
-      navigation.navigate('Details', {dataDetails: {...data}});
+    (data: Article,isLiked:boolean) => {
+      navigation.navigate('Details', {dataDetails: {...data,isLiked}});
     },
     [navigation],
   );
@@ -91,7 +91,7 @@ const Trend = ({
 
       return (
         <TouchableOpacity
-          onPress={() => showDetails(item)}
+          onPress={() => showDetails(item,isLiked)}
           style={[styles.containerCard, containerCartStyle]}>
           <Image
             style={[styles.imgCartRecents, imgCart]}

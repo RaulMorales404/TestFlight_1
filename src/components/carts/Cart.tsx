@@ -31,6 +31,7 @@ export const Cart = ({data,action,stateLiked}: Props,) => {
     navigation.navigate('Details', {
       dataDetails: {
         ...data,
+        isLiked:isLiked
       },
     });
   };

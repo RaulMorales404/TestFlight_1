@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -14,6 +14,7 @@ import {ScreenRouteStackProp} from 'navigation/HomeStackNavigation';
 import {useFormatDate} from '@components/hooks/useFormatDate';
 import {IconArroLeft, IconLike, IconLikeFull} from '@assets/icons-svgs';
 import { Article } from '@services/interfaces/articlesInterface';
+import { saveNewArticle } from '@services/localStorage/SaveArticlesStorage';
 
 const Details = () => {
   const navigation = useNavigation();
@@ -30,8 +31,13 @@ const Details = () => {
     urlToImage: '',
     publishedAt: '',
     content: '',
+    isLiked:false,
   };
-
+const [likedArticle,setLikeArticle] =useState<boolean>(dataDetails.isLiked?dataDetails.isLiked:false)
+  const clickLiked = async ()=>{
+    setLikeArticle(!likedArticle)
+    await saveNewArticle(dataDetails);
+  }
 
   useEffect(() => {
     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
@@ -60,8 +66,8 @@ const Details = () => {
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
               borderRadius: 100,
             }}
-            onPress={() => {}}>
-            {false ? (
+            onPress={() =>clickLiked()}>
+            {likedArticle? (
               <IconLikeFull
                 color="#2ba8eb"
                 secColor="#fff"
