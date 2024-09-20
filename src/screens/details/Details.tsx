@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -12,7 +12,7 @@ import Trend from '@components/trend/Trend';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenRouteStackProp} from 'navigation/HomeStackNavigation';
 import {useFormatDate} from '@components/hooks/useFormatDate';
-import {IconArroLeft} from '@assets/icons-svgs';
+import {IconArroLeft, IconLike, IconLikeFull} from '@assets/icons-svgs';
 import { Article } from '@services/interfaces/articlesInterface';
 
 const Details = () => {
@@ -51,9 +51,30 @@ const Details = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={[styles.containerIconBack, styles.containerIconSave]}>
-            <Text style={{color: 'white'}}>Sa</Text>
+          <View style={[  styles.containerIconSave]}>
+          
+          <View style={{position: 'absolute', bottom: -2, right: 1}}>
+          <TouchableOpacity
+            style={{
+              padding: 10,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              borderRadius: 100,
+            }}
+            onPress={() => {}}>
+            {false ? (
+              <IconLikeFull
+                color="#2ba8eb"
+                secColor="#fff"
+                width={30}
+                height={30}
+              />
+            ) : (
+              <IconLike color="#6a6a6a" width={30} height={30} />
+            )}
+          </TouchableOpacity>
+        </View>
           </View>
+          
         </View>
         <View style={styles.containerInfo}>
           <Text style={styles.titleText}>{dataDetails.title}</Text>
@@ -77,7 +98,7 @@ const Details = () => {
             <Text style={styles.descText}>{dataDetails.content}</Text>
           </View>
         </View>
-        <Trend />
+        {/* <Trend /> */}
       </SafeAreaView>
     </ScrollView>
   );

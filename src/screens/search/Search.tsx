@@ -1,5 +1,5 @@
 import {HistoryList} from '@components/history/HistoryList';
-import { LoadingSearchArticles } from '@components/loadings/LoadingSearchArticles';
+import {LoadingSearchArticles} from '@components/loadings/LoadingSearchArticles';
 import SearchInput from '@components/searchInput/SearchInput';
 import Trend from '@components/trend/Trend';
 import {searchArticlesServices} from '@services/articles';
@@ -7,45 +7,51 @@ import {Article} from '@services/interfaces/articlesInterface';
 import {
   addSearchToHistory,
   getSearchHistory,
+  saveSearchHistory,
 } from '@services/localStorage/HistorialSearch';
+import { saveNewArticle } from '@services/localStorage/SaveArticlesStorage';
 import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 const Search = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [historSearch, setHistorSearch] = useState<Array<string>>([]);
+
+  const [likedArticles, setLikedArticles] = useState<{[key: string]: boolean}>(
+    {},
+  );
   const [textInput, setTextInput] = useState<string>('');
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const showHistory = useRef(0);
 
   const searchingNews = async (text: string) => {
-    setIsLoading(true); // Activa el estado de carga
-    setArticles([])
+    setArticles([]);
     if (text.trim() !== '') {
       showHistory.current = 1;
       try {
-       
         const response = await searchArticlesServices(text);
-        setArticles(response); // Actualiza con los nuevos artículos
-        setIsLoading(false); // Desactiva el estado de carga después de obtener los artículos
-        addSearchToHistory(text); // Añade la búsqueda al historial
+        setArticles(response);
+        setIsLoading(false);
+        addSearchToHistory(text);
       } catch (error) {
         console.log('Error', error);
-        setIsLoading(false); // Desactiva la carga en caso de error
+        setIsLoading(false);
       }
     } else {
-      // Si el texto está vacío, vuelve a mostrar el historial
       if (showHistory.current === 1) {
-        setArticles([])
+        setArticles([]);
         getArticlesStore();
-        setIsLoading(false); // Asegúrate de desactivar el estado de carga
+        setIsLoading(false);
         showHistory.current = 0;
       }
     }
   };
-  
 
   const changeTextInpud = (text: string) => {
+    if (text.trim() !== '') {
+      setIsLoading(true);
+    }
+
     setTextInput(text);
   };
 
@@ -53,13 +59,36 @@ const Search = () => {
     const historyStorage = await getSearchHistory();
     if (historyStorage) {
       setHistorSearch(historyStorage);
+      setIsLoading(false);
     }
   };
 
+  const toggleLike = async (articleId: string, item: Article) => {
+    setLikedArticles(prevState => ({
+      ...prevState,
+      [articleId]: !prevState[articleId], // Invierte el estado de "like" para el artículo específico
+    }));
+    await saveNewArticle(item);
+  };
+  
   useEffect(() => {
     getArticlesStore();
     return () => {};
   }, []);
+
+  
+
+  const deleteHistorySearItem = async  (item:string)=> {
+    const resultNewHistory = historSearch.filter((value)=>{
+      if(value !== item){
+        return value;
+      }
+    })
+    if(resultNewHistory){
+      setHistorSearch(resultNewHistory);
+      await saveSearchHistory(resultNewHistory);
+    }
+  }
 
   return (
     <View style={{flex: 1}}>
@@ -69,19 +98,26 @@ const Search = () => {
         action={changeTextInpud}
       />
       <View style={styles.headerTitle}></View>
-  
+
       {textInput.length === 0 && (
-        <HistoryList dataHistory={historSearch} action={changeTextInpud} />
+        <HistoryList
+          dataHistory={historSearch}
+          action={changeTextInpud}
+          deleteSearch={deleteHistorySearItem}
+        />
       )}
-  
+
       {isLoading ? (
         <LoadingSearchArticles />
       ) : (
-        articles.length > 0 && textInput.length > 0 && (
+        articles.length > 0 &&
+        textInput.length > 0 && (
           <View style={{paddingHorizontal: 5, paddingRight: 10}}>
             <Trend
               data={articles}
               title={false}
+              likedArticles={likedArticles}
+              actionLike={toggleLike}
               horizontal={false}
               imgCart={{
                 width: 160,
@@ -97,7 +133,6 @@ const Search = () => {
       )}
     </View>
   );
-  
 };
 
 export default Search;

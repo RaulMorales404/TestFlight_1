@@ -2,9 +2,14 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Search from '@screens/search/Search';
 import Reactions from '@screens/reactions/Reactions';
+import { Article } from '@services/interfaces/articlesInterface';
+import Details from '@screens/details/Details';
 
 export type RootStackParamList = {
   Likes: undefined;
+  Details: {
+    dataDetails:Article
+  };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -35,6 +40,10 @@ const LikesStackNavigation = () => {
             backgroundColor: 'white',
           },
         }}
+      />
+      <Stack.Screen name="Details" 
+      options={{ headerShown: false}}
+      component={Details} 
       />
     </Stack.Navigator>
   );

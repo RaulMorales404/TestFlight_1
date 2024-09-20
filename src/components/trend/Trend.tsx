@@ -1,16 +1,29 @@
-import { Image, Text, View, FlatList, TouchableOpacity, StyleProp, ImageStyle, TextStyle, ViewStyle } from 'react-native';
-import { styles } from './styles'; 
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'navigation/HomeStackNavigation';
-import { IconLike } from '@assets/icons-svgs';
-import { Article } from '@services/interfaces/articlesInterface';
-import { getStoreArticles } from '@services/localStorage/LocalStore'; 
-import { useEffect, useState, useCallback } from 'react';
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  Image,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  StyleProp,
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
+  RefreshControl,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {styles} from './styles';
+import {IconLike, IconLikeFull} from '@assets/icons-svgs';
+import {Article} from '@services/interfaces/articlesInterface';
+import {getStoreArticles} from '@services/localStorage/LocalStore';
+import {RootStackParamList} from 'navigation/HomeStackNavigation';
 
 interface Props {
-  data: Article;
+  data: Article[];
+  likedArticles: {[key: string]: boolean};
+  actionLike: (item: string, data: Article) => void;
+  actionRefresh?: () => void;
   horizontal?: boolean;
   title?: boolean;
   containerCartStyle?: StyleProp<ViewStyle>;
@@ -20,11 +33,28 @@ interface Props {
   descStyle?: StyleProp<TextStyle>;
 }
 
-type DetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Details'>;
+type DetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Details'
+>;
 
-const Trend = ({ data, title = true, horizontal = true, containerStyle, titleStyle, descStyle, imgCart, containerCartStyle }: Props) => {
+const Trend = ({
+  data,
+  title = true,
+  horizontal = true,
+  likedArticles,
+  actionLike,
+  actionRefresh,
+  containerStyle,
+  titleStyle,
+  descStyle,
+  imgCart,
+  containerCartStyle,
+}: Props) => {
   const [articles, setArticles] = useState<Article[]>([]);
+
   const navigation = useNavigation<DetailsScreenNavigationProp>();
+  const [refreshing, setRefreshing] = useState(false);
 
   const getArticlesStore = useCallback(async () => {
     const articlesStorage = await getStoreArticles();
@@ -36,50 +66,106 @@ const Trend = ({ data, title = true, horizontal = true, containerStyle, titleSty
     }
   }, []);
 
+  const showDetails = useCallback(
+    (data: Article) => {
+      navigation.navigate('Details', {dataDetails: {...data}});
+    },
+    [navigation],
+  );
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    actionRefresh ? actionRefresh() : getArticlesStore();
+    setRefreshing(false);
+  };
+
   useEffect(() => {
     getArticlesStore();
   }, [getArticlesStore]);
 
-  const showDetails = useCallback((data: Article) => {
-    navigation.navigate('Details', { dataDetails: { ...data } });
-  }, [navigation]);
+  const renderCartRecent = useCallback(
+    ({item}: {item: Article}) => {
+      if (!item.urlToImage) return null;
 
-  const renderCartRecent = useCallback(({ item }: { item: Article }) => {
-    if (!item.urlToImage) return null;
-    return (
-      <TouchableOpacity onPress={() => showDetails(item)} style={[styles.containerCard, containerCartStyle]}>
-        <Image style={[styles.imgCartRecents, imgCart]} source={{ uri: item.urlToImage }} resizeMode="cover" />
-        <View style={styles.containerInfoText}>
-          <Text style={[styles.textTitleRecent, titleStyle]} numberOfLines={horizontal ? 1 : 2} ellipsizeMode="clip">
-            {item.title}
-          </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-            <Text style={[styles.textTitleRecent, styles.titleDesc, descStyle]} numberOfLines={horizontal ? 3 : 5}>
-              {item.description}
+      const isLiked = likedArticles[item.url] || false;
+
+      return (
+        <TouchableOpacity
+          onPress={() => showDetails(item)}
+          style={[styles.containerCard, containerCartStyle]}>
+          <Image
+            style={[styles.imgCartRecents, imgCart]}
+            source={{uri: item.urlToImage}}
+            resizeMode="cover"
+          />
+          <View style={styles.containerInfoText}>
+            <Text
+              style={[styles.textTitleRecent, titleStyle]}
+              numberOfLines={horizontal ? 1 : 2}
+              ellipsizeMode="clip">
+              {item.title}
             </Text>
-            {!horizontal && (
-              <TouchableOpacity>
-                <IconLike color="#323232" />
-              </TouchableOpacity>
-            )}
+            <View
+              style={{flexDirection: 'row', alignItems: 'flex-start', flex: 1}}>
+              <Text
+                style={[styles.textTitleRecent, styles.titleDesc, descStyle]}
+                numberOfLines={horizontal ? 3 : 5}>
+                {item.description}
+              </Text>
+              {!horizontal && (
+                <TouchableOpacity
+                  style={{
+                    alignSelf: 'flex-end',
+                    top: -5,
+                    right: 0,
+                    padding: 7,
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: 100,
+                  }}
+                  onPress={() => actionLike(item.url, item)}>
+                  {isLiked ? (
+                    <IconLikeFull
+                      color="#2ba8eb"
+                      secColor="#fff"
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    <IconLike color="#6a6a6a" width={20} height={20} />
+                  )}
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }, [showDetails, containerCartStyle, imgCart, titleStyle, descStyle, horizontal]);
+        </TouchableOpacity>
+      );
+    },
+    [likedArticles, showDetails],
+  );
 
   return (
     <View style={[styles.containerRecents, containerStyle]}>
       {title && <Text style={styles.titleRecents}>TENDENCIAS</Text>}
       <FlatList
+        refreshControl={
+          <RefreshControl
+            style={{marginBottom: 10}}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#2CB3FC']} // Colores para Android
+            tintColor="#2CB3FC" // Color para iOS
+          />
+        }
         horizontal={horizontal}
         data={data || articles}
         showsHorizontalScrollIndicator={!horizontal}
         showsVerticalScrollIndicator={horizontal}
-        ItemSeparatorComponent={() => <View style={horizontal ? { marginRight: 20 } : { marginBottom: 15 }} />}
-        ListFooterComponent={<View style={{ marginRight: 80 }} />}
-        ListHeaderComponent={<View style={{ marginRight: 10 }} />}
-        keyExtractor={(item,index) => item.url+index || item.title+index} // Asegúrate de tener una clave única.
+        ItemSeparatorComponent={() => (
+          <View style={horizontal ? {marginRight: 20} : {marginBottom: 0}} />
+        )}
+        ListFooterComponent={<View style={{marginRight: 80}} />}
+        ListHeaderComponent={<View style={{marginRight: 10}} />}
+        keyExtractor={(item, index) => item.url + index || item.title + index} // Asegúrate de tener una clave única.
         renderItem={renderCartRecent}
       />
     </View>

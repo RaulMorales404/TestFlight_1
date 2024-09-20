@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {SafeAreaView, StatusBar, View, Animated, Text} from 'react-native';
+import {SafeAreaView, StatusBar, View, Animated, Text, RefreshControl} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Cart} from '@components/carts/Cart';
 import {getArticlesServices} from '@services/articles';
@@ -12,6 +12,7 @@ import { LoadingCardArticles } from '@components/loadings/LoadingAcrdsArticles';
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading,setIsLoading] = useState(false);
+  const [isRefresh,setisRefresh] = useState(false);
 
   const saveArticlesStore = async (data: Article[]) => {
     if (data) {
@@ -40,6 +41,24 @@ const Home = () => {
     }
   };
 
+
+
+  const onRefresh = async () => {
+    try {
+      setisRefresh(true);
+      const response = await getArticlesServices();
+      setArticles(response);
+      saveArticlesStore(response);
+      setisRefresh(false);
+    } catch (error) {
+      console.log('error', error);
+      getArticlesStore();
+      setisRefresh(false);
+    }
+   
+  
+  };
+
   useEffect(() => {
     getAllArticles();
   }, []);
@@ -52,7 +71,7 @@ const Home = () => {
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
       <SafeAreaView style={{flex: 1, marginTop: StatusBar.currentHeight || 0}}>
-        <View style={{marginLeft: 10}}>
+        <View style={{marginLeft: 10,marginBottom:10}}>
           <Text style={styles.titleHeader}>News App</Text>
         </View>
         <FilterButton />
@@ -60,6 +79,15 @@ const Home = () => {
           data={articles}
           ListHeaderComponent={
             <View style={{paddingBottom: 20}}/>
+          }
+          refreshControl={
+            <RefreshControl
+            style={{marginBottom:10}}
+              refreshing={isRefresh}
+              onRefresh={onRefresh}
+              colors={['#2CB3FC']} // Colores para Android
+              tintColor="#2CB3FC" // Color para iOS
+            />
           }
           renderItem={renderItem}
           style={{backgroundColor: 'white'}}

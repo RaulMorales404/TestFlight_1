@@ -15,7 +15,7 @@ export const getSearchHistory = async () => {
 };
 
 // Función para guardar el historial en AsyncStorage
-const saveSearchHistory = async (history: any[]) => {
+export const saveSearchHistory = async (history: any[]) => {
   try {
     const jsonValue = JSON.stringify(history);
     await AsyncStorage.setItem(SEARCH_HISTORY_KEY, jsonValue);
@@ -24,9 +24,10 @@ const saveSearchHistory = async (history: any[]) => {
   }
 };
 
-// Función para agregar una nueva búsqueda al historial
+ 
+ 
 export const addSearchToHistory = async (newSearch: any) => {
-  if (!newSearch) return; // Verifica si el campo de búsqueda no está vacío
+  if (!newSearch) return;  
 
   try {
     const currentHistory = await getSearchHistory(); 

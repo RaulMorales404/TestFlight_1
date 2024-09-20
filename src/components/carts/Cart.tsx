@@ -1,39 +1,59 @@
- 
 import {Image, ScrollView, Text, View} from 'react-native';
 import {styles} from './style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from 'navigation/HomeStackNavigation';
-import { useFormatDate } from '../hooks/useFormatDate';
-import { Article } from '@services/interfaces/articlesInterface';
- 
-type DetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Details'>;
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from 'navigation/HomeStackNavigation';
+import {useFormatDate} from '../hooks/useFormatDate';
+import {Article} from '@services/interfaces/articlesInterface';
+import {IconLike, IconLikeFull} from '@assets/icons-svgs';
 
-export const Cart = (data:Article) => {
-  if(!data.urlToImage)return;
-  
-  const navigation = useNavigation<DetailsScreenNavigationProp>()
+type DetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Details'
+>;
+
+export const Cart = (data: Article) => {
+  if (!data.urlToImage) return;
+
+  const navigation = useNavigation<DetailsScreenNavigationProp>();
   const {formattedDate} = useFormatDate();
 
   const showDetails = () => {
-    navigation.navigate('Details',{
-      dataDetails:{
-        ...data
-      }
-    })
-  }
-
-  
-  
+    navigation.navigate('Details', {
+      dataDetails: {
+        ...data,
+      },
+    });
+  };
 
   return (
-    <TouchableOpacity
-      onPress={()=>showDetails()}
-      style={styles.container}>
-      <Image source={{uri: data.urlToImage}} style={styles.img} />
+    <TouchableOpacity onPress={() => showDetails()} style={styles.container}>
+      <View>
+        <Image source={{uri: data.urlToImage}} style={styles.img} />
+        <View style={{position: 'absolute', bottom: -5, right: 1}}>
+          <TouchableOpacity
+            style={{
+              padding: 10,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              borderRadius: 100,
+            }}
+            onPress={() => {}}>
+            {false ? (
+              <IconLikeFull
+                color="#2ba8eb"
+                secColor="#fff"
+                width={25}
+                height={25}
+              />
+            ) : (
+              <IconLike color="#6a6a6a" width={25} height={25} />
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
 
-      <View style={styles.containerInfo}>
+      <View style={[styles.containerInfo, {marginTop: 10}]}>
         <Text style={styles.titleText}>{data.title}</Text>
 
         <View style={styles.containerAuthor}>
@@ -44,7 +64,7 @@ export const Cart = (data:Article) => {
 
         <View style={styles.containerDesc}>
           <Text numberOfLines={3} ellipsizeMode="clip" style={styles.descText}>
-            {data.description} 
+            {data.description}
           </Text>
           <Text style={styles.readMore}>Read More</Text>
         </View>

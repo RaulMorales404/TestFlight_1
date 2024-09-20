@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     width: 300,
     flexDirection: 'row',
+    marginBottom:10,
   },
   titleRecents: {
     color: 'white',
