@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {styles} from './style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
@@ -6,17 +6,25 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from 'navigation/HomeStackNavigation';
 import {useFormatDate} from '../hooks/useFormatDate';
 import {Article} from '@services/interfaces/articlesInterface';
-import {IconLike, IconLikeFull} from '@assets/icons-svgs';
+import {IconLike, IconLikeFull} from '@assets/icons-svgs'; 
 
 type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
 
-export const Cart = (data: Article) => {
-  if (!data.urlToImage) return;
+interface Props {
+  data:Article,
+  action:(idArticle:string,data:Article)=>void;
+  stateLiked:{[key:string]:boolean}
+}
 
-  const navigation = useNavigation<DetailsScreenNavigationProp>();
+
+ 
+export const Cart = ({data,action,stateLiked}: Props,) => {
+  if (!data.urlToImage) return;
+  const isLiked = stateLiked[data.urlToImage]||false;
+  const navigation = useNavigation<DetailsScreenNavigationProp>(); 
   const {formattedDate} = useFormatDate();
 
   const showDetails = () => {
@@ -26,6 +34,8 @@ export const Cart = (data: Article) => {
       },
     });
   };
+
+   
 
   return (
     <TouchableOpacity onPress={() => showDetails()} style={styles.container}>
@@ -38,8 +48,8 @@ export const Cart = (data: Article) => {
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
               borderRadius: 100,
             }}
-            onPress={() => {}}>
-            {false ? (
+            onPress={() => action(data.urlToImage,data)}>
+            {isLiked ? (
               <IconLikeFull
                 color="#2ba8eb"
                 secColor="#fff"

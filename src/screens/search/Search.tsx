@@ -51,7 +51,6 @@ const Search = () => {
     if (text.trim() !== '') {
       setIsLoading(true);
     }
-
     setTextInput(text);
   };
 
