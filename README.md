@@ -10,6 +10,16 @@ First, you will need to start **Metro**, the JavaScript _bundler_ that ships _wi
 
 To start Metro, run the following command from the _root_ of your React Native project:
 
+
+<img width="564" alt="Captura de pantalla 2024-09-17 a la(s) 12 12 56 a m" src="https://github.com/user-attachments/assets/370bb813-2a1a-4282-9985-145422f7b7d7">
+<img width="564" alt="Captura de pantalla 2024-09-17 a la(s) 12 13 05 a m" src="https://github.com/user-attachments/assets/8352cf98-bcf4-43f3-80f2-333e0536f08b">
+<img width="520" alt="Captura de pantalla 2024-09-17 a la(s) 12 12 26 a m" src="https://github.com/user-attachments/assets/929822bb-4c03-489c-9e11-f6c3b4a12e5a">
+
+<img width="564" alt="Captura de pantalla 2024-09-19 a la(s) 4 55 44 p m" src="https://github.com/user-attachments/assets/270a6ef4-a584-4e10-993f-726a02248674">
+
+<img width="564" alt="Captura de pantalla 2024-09-19 a la(s) 4 55 50 p m" src="https://github.com/user-attachments/assets/ea3c928b-c057-4237-abbd-ef484b8a9ffe">
+
+
 ```bash
 # using npm
 npm start
