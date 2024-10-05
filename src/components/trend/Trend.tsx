@@ -148,7 +148,7 @@ const Trend = ({
       {title && <Text style={styles.titleRecents}>TENDENCIAS</Text>}
       <FlatList
         refreshControl={
-          <RefreshControl
+          !horizontal && <RefreshControl
             style={{marginBottom: 10}}
             refreshing={refreshing}
             onRefresh={onRefresh}

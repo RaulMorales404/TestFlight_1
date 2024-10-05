@@ -21,6 +21,7 @@ const Details = () => {
   const getDataRoute = useRoute<ScreenRouteStackProp>();
   const {formattedDate} = useFormatDate();
   const scrollViewRef = useRef<ScrollView>(null);
+  const [isSelected,setIsSelected] = useState<{[key:string]:boolean}>({})
  
   const dataDetails: Article = getDataRoute.params?.dataDetails || {
     source: {id: '', name: ''},
@@ -33,13 +34,32 @@ const Details = () => {
     content: '',
     isLiked:false,
   };
+ 
 const [likedArticle,setLikeArticle] =useState<boolean>(dataDetails.isLiked?dataDetails.isLiked:false)
-  const clickLiked = async ()=>{
+  
+const clickLiked = async ()=>{
     setLikeArticle(!likedArticle)
     await saveNewArticle(dataDetails);
   }
 
+  
+
+  
+
+  const detailsTrend = (item: string, data: Article)=>{
+    console.log(item)
+   setIsSelected((prevState)=>({
+    ...prevState,
+    [item]:!prevState[item],
+
+   }))
+  }
+
   useEffect(() => {
+    if(dataDetails){
+      setLikeArticle(dataDetails.isLiked);
+    }
+   
     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   }, [dataDetails]);
  
@@ -104,7 +124,7 @@ const [likedArticle,setLikeArticle] =useState<boolean>(dataDetails.isLiked?dataD
             <Text style={styles.descText}>{dataDetails.content}</Text>
           </View>
         </View>
-        {/* <Trend /> */}
+       <Trend likedArticles={isSelected} actionLike={detailsTrend} /> 
       </SafeAreaView>
     </ScrollView>
   );
