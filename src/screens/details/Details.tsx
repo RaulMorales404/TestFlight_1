@@ -15,6 +15,7 @@ import {useFormatDate} from '@components/hooks/useFormatDate';
 import {IconArroLeft, IconLike, IconLikeFull} from '@assets/icons-svgs';
 import { Article } from '@services/interfaces/articlesInterface';
 import { saveNewArticle } from '@services/localStorage/SaveArticlesStorage';
+import { FadeInImage } from '@components/fade/FadeInImage';
 
 const Details = () => {
   const navigation = useNavigation();
@@ -67,7 +68,8 @@ const clickLiked = async ()=>{
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}  ref={scrollViewRef}>
       <SafeAreaView>
         <View>
-          <Image source={{uri:dataDetails.urlToImage }} style={styles.img} />
+          
+          <FadeInImage uri={dataDetails.urlToImage} styles={styles.img}/>
 
           <View style={[styles.containerIconBack, {backgroundColor: 'black'}]}>
             <TouchableOpacity

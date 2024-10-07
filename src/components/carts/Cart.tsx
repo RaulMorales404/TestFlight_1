@@ -6,7 +6,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from 'navigation/HomeStackNavigation';
 import {useFormatDate} from '../hooks/useFormatDate';
 import {Article} from '@services/interfaces/articlesInterface';
-import {IconLike, IconLikeFull} from '@assets/icons-svgs'; 
+import {IconLike, IconLikeFull} from '@assets/icons-svgs';
+import {FadeInImage} from '@components/fade/FadeInImage';
 
 type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -14,34 +15,30 @@ type DetailsScreenNavigationProp = StackNavigationProp<
 >;
 
 interface Props {
-  data:Article,
-  action:(idArticle:string,data:Article)=>void;
-  stateLiked:{[key:string]:boolean}
+  data: Article;
+  action: (idArticle: string, data: Article) => void;
+  stateLiked: {[key: string]: boolean};
 }
 
-
- 
-export const Cart = ({data,action,stateLiked}: Props,) => {
+export const Cart = ({data, action, stateLiked}: Props) => {
   if (!data.urlToImage) return;
-  const isLiked = stateLiked[data.urlToImage]||false;
-  const navigation = useNavigation<DetailsScreenNavigationProp>(); 
+  const isLiked = stateLiked[data.urlToImage] || false;
+  const navigation = useNavigation<DetailsScreenNavigationProp>();
   const {formattedDate} = useFormatDate();
 
   const showDetails = () => {
     navigation.navigate('Details', {
       dataDetails: {
         ...data,
-        isLiked:isLiked
+        isLiked: isLiked,
       },
     });
   };
 
-   
-
   return (
     <TouchableOpacity onPress={() => showDetails()} style={styles.container}>
       <View>
-        <Image source={{uri: data.urlToImage}} style={styles.img} />
+        <FadeInImage uri={data.urlToImage} styles={{...styles.img}} />
         <View style={{position: 'absolute', bottom: -5, right: 1}}>
           <TouchableOpacity
             style={{
@@ -49,7 +46,7 @@ export const Cart = ({data,action,stateLiked}: Props,) => {
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
               borderRadius: 100,
             }}
-            onPress={() => action(data.urlToImage,data)}>
+            onPress={() => action(data.urlToImage, data)}>
             {isLiked ? (
               <IconLikeFull
                 color="#2ba8eb"

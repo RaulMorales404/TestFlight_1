@@ -18,6 +18,7 @@ import {IconLike, IconLikeFull} from '@assets/icons-svgs';
 import {Article} from '@services/interfaces/articlesInterface';
 import {getStoreArticles} from '@services/localStorage/LocalStore';
 import {RootStackParamList} from 'navigation/HomeStackNavigation';
+import { FadeInImage } from '@components/fade/FadeInImage';
 
 interface Props {
   data: Article[];
@@ -95,11 +96,8 @@ const Trend = ({
           style={[
             styles.containerCard,
              containerCartStyle]}>
-          <Image
-            style={[styles.imgCartRecents, imgCart,{marginRight:10}]}
-            source={{uri: item.urlToImage}}
-            resizeMode="cover"
-          />
+          <FadeInImage uri={item.urlToImage} styles={[styles.imgCartRecents, imgCart,{marginRight:10}]}/>
+         
           <View style={{flex:1 }}>
             <Text
               style={[styles.textTitleRecent, titleStyle,{paddingRight:10,
@@ -176,7 +174,7 @@ const Trend = ({
         ItemSeparatorComponent={() => (
           <View style={horizontal ? {marginRight: 20} : {marginBottom: 0}} />
         )}
-        ListFooterComponent={<View style={{marginRight: 80}} />}
+        ListFooterComponent={<View style={{marginRight: 80, marginBottom:horizontal?0:300 }} />}
         ListHeaderComponent={<View style={{marginRight: 10}} />}
         keyExtractor={(item, index) => item.url + index || item.title + index} // Asegúrate de tener una clave única.
         renderItem={renderCartRecent}

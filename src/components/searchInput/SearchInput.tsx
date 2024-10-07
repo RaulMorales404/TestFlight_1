@@ -27,7 +27,6 @@ const SearchInput = ({onDebounce, action, textInput}: Props) => {
         style={{
           ...styles.textBagkroun,
           height: os() ? 50 : 42,
-          elevation: os() ? 9 : 5,
         }}>
         <View style={{paddingRight: 10}}>
           <IconSearch color={'#000000'} width={20} />
