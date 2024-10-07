@@ -92,33 +92,43 @@ const Trend = ({
       return (
         <TouchableOpacity
           onPress={() => showDetails(item,isLiked)}
-          style={[styles.containerCard, containerCartStyle]}>
+          style={[
+            styles.containerCard,
+             containerCartStyle]}>
           <Image
-            style={[styles.imgCartRecents, imgCart]}
+            style={[styles.imgCartRecents, imgCart,{marginRight:10}]}
             source={{uri: item.urlToImage}}
             resizeMode="cover"
           />
-          <View style={styles.containerInfoText}>
+          <View style={{flex:1 }}>
             <Text
-              style={[styles.textTitleRecent, titleStyle]}
+              style={[styles.textTitleRecent, titleStyle,{paddingRight:10,
+                width:"100%",paddingBottom:10}]}
               numberOfLines={horizontal ? 1 : 2}
-              ellipsizeMode="clip">
+              ellipsizeMode="clip"
+              >
               {item.title}
             </Text>
-            <View
-              style={{flexDirection: 'row', alignItems: 'flex-start', flex: 1}}>
-              <Text
-                style={[styles.textTitleRecent, styles.titleDesc, descStyle]}
+          
+           <View style={{flexDirection:'row'}}>
+            <Text
+                style={[ styles.titleDesc, descStyle,{width:"85%"}]}
                 numberOfLines={horizontal ? 3 : 5}>
                 {item.description}
               </Text>
-              {!horizontal && (
-                <TouchableOpacity
+
+          {!horizontal && (
+                <View style={{flex:1,justifyContent:'flex-end',
+                  bottom:0,
+                  right:7,
+                  top:10
+                }}>
+                    <TouchableOpacity
                   style={{
                     alignSelf: 'flex-end',
-                    top: -5,
-                    right: 0,
                     padding: 7,
+                    top:-5,
+                    right:-3,
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: 100,
                   }}
@@ -134,8 +144,11 @@ const Trend = ({
                     <IconLike color="#6a6a6a" width={20} height={20} />
                   )}
                 </TouchableOpacity>
-              )}
-            </View>
+                  </View>
+              
+              )} 
+           </View>
+             
           </View>
         </TouchableOpacity>
       );

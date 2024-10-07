@@ -35,10 +35,8 @@ export const styles = StyleSheet.create({
     width: 170,
     top: 5,
     fontSize: 13,
-    paddingHorizontal: 5,
     color: '#231414',
     fontWeight: '600',
-    paddingVertical: 3,
   },
   titleDesc: {
     color: '#5f5c5c',

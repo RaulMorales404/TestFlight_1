@@ -73,7 +73,7 @@ const Reactions = () => {
             horizontal={false}
             imgCart={{width: 160, height: '100%'}}
             titleStyle={{width: 200, textAlign: 'justify'}}
-            descStyle={{}}
+            descStyle={{paddingRight:10}}
             containerCartStyle={{width: '100%', height: 130}}
             containerStyle={{height: '100%'}}
           />
