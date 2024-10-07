@@ -37,7 +37,7 @@ const SearchInput = ({onDebounce, action, textInput}: Props) => {
             ...styles.textInput,
             top: os() ? -1 : 0,
             fontSize: os() ? 17 : 15,
-            fontWeight: '500',
+            fontWeight: os()? '400':'500',
           }}
           placeholder="Search by Articles"
           placeholderTextColor="#171717"

@@ -29,6 +29,7 @@ interface Props {
   title?: boolean;
   containerCartStyle?: StyleProp<ViewStyle>;
   imgCart?: StyleProp<ImageStyle>;
+  bgColor?:StyleProp<ViewStyle>;
   containerStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
   descStyle?: StyleProp<TextStyle>;
@@ -46,6 +47,7 @@ const Trend = ({
   likedArticles,
   actionLike,
   actionRefresh,
+  bgColor,
   containerStyle,
   titleStyle,
   descStyle,
@@ -156,7 +158,7 @@ const Trend = ({
 
   return (
     <View style={[styles.containerRecents, containerStyle]}>
-      {title && <Text style={styles.titleRecents}>TENDENCIAS</Text>}
+      {title && <Text style={[styles.titleRecents,bgColor,]}>TENDENCIAS</Text>}
       <FlatList
         refreshControl={
           !horizontal && <RefreshControl

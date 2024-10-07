@@ -10,6 +10,7 @@ module.exports = {
           '@screens': './src/screens',
           '@services':'./src/services',
           '@api':'./src/api',
+          '@helpers':'./src/helpers',
           '@assets': './src/assets',
           // Agrega más alias según sea necesario
         },

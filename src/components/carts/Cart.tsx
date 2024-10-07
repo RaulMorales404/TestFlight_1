@@ -36,7 +36,7 @@ export const Cart = ({data, action, stateLiked}: Props) => {
   };
 
   return (
-    <TouchableOpacity onPress={() => showDetails()} style={styles.container}>
+    <TouchableOpacity onPress={() => showDetails()}   activeOpacity={1} style={styles.container}>
       <View>
         <FadeInImage uri={data.urlToImage} styles={{...styles.img}} />
         <View style={{position: 'absolute', bottom: -5, right: 1}}>
