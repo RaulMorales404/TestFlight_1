@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, Key} from 'react';
+import React, {useState, } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -6,86 +6,51 @@ import {
   Animated,
   Text,
   RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Cart} from '@components/carts/Cart';
-import {getArticlesServices} from '@services/articles';
 import {Article} from '../../services/interfaces/articlesInterface';
 import {FilterButton} from '@components/filters/FilterButton';
 import {styles} from './stylesHome';
-import {
-  getStoreArticles,
-  setStoreArticles,
-} from '@services/localStorage/LocalStore';
 import {LoadingCardArticles} from '@components/loadings/LoadingAcrdsArticles';
-import { saveNewArticle } from '@services/localStorage/SaveArticlesStorage';
-
-
-
+import {saveNewArticle} from '@services/localStorage/SaveArticlesStorage';
+import {useStore} from '@store/useStore';
 
 const Home = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [likedArticle,setLikedArticle] = useState<{[key:string]:boolean}>({})
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRefresh, setisRefresh] = useState(false);
-
-  const saveArticlesStore = async (data: Article[]) => {
-    if (data) {
-      await setStoreArticles(data);
-    }
-  };
-
-  const getArticlesStore = async () => {
-    const articlesStorage = await getStoreArticles();
-    if (articlesStorage) {
-      setArticles(articlesStorage);
-    }
-  };
-
-  const getAllArticles = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getArticlesServices();
-      setArticles(response);
-      saveArticlesStore(response);
-      setIsLoading(false);
-    } catch (error) {
-      console.log('error', error);
-      getArticlesStore();
-      setIsLoading(false);
-    }
-  };
-
+  const {articles,isLoading,getArticles,isRefresh} = useStore();
+  
+  const [likedArticle, setLikedArticle] = useState<{[key: string]: boolean}>(
+    {},
+  );
+ 
+  
   const onRefresh = async () => {
-    try {
-      setisRefresh(true);
-      const response = await getArticlesServices();
-      setArticles(response);
-      saveArticlesStore(response);
-      setisRefresh(false);
-    } catch (error) {
-      console.log('error', error);
-      getArticlesStore();
-      setisRefresh(false);
-    }
+    const setIsRefresh = true;
+    getArticles(8,setIsRefresh);
   };
 
-  const clickLikedArticle = async (idArticle:string,data:Article)=>{
-    setLikedArticle((prevState)=>({
-      ...prevState,
-      [idArticle]:!prevState[idArticle],
-    }))
-    await saveNewArticle(data);
-    
+  const getMoreArticles = ()=>{
+    const page = articles.length+9;
+    const showEasyLoad = false;
+    const setIsRefresh = false;
+    getArticles(page,setIsRefresh,showEasyLoad);
   }
 
-  useEffect(() => {
-    getAllArticles();
-  }, []);
+  const clickLikedArticle = async (idArticle: string, data: Article) => {
+    setLikedArticle(prevState => ({
+      ...prevState,
+      [idArticle]: !prevState[idArticle],
+    }));
+    await saveNewArticle(data);
+  };
 
+  
   // Usar useCallback para memorizar renderItem y evitar renders innecesarios
-  const renderItem =  ({item}: {item: Article}) => {
-    return <Cart data={item} action={clickLikedArticle} stateLiked={likedArticle}  />;
+  const renderItem = ({item}: {item: Article}) => {
+    return (
+      <Cart data={item} action={clickLikedArticle} stateLiked={likedArticle} />
+    );
   };
 
   return (
@@ -110,10 +75,18 @@ const Home = () => {
             }
             renderItem={renderItem}
             style={{backgroundColor: 'white'}}
-            ListFooterComponent={<View style={{paddingBottom: 50}} />}
+            ListFooterComponent={
+              <View style={{ height: 150, justifyContent: 'center' }}>
+                  <ActivityIndicator color={'#2CB3FC'} size={50}/>
+              </View>
+
+          }
             ItemSeparatorComponent={() => <View style={{height: 0}} />}
             keyExtractor={(item, index) => item.title + index}
             scrollEventThrottle={16}
+            onEndReached={getMoreArticles}
+            onEndReachedThreshold={0.6}
+
           />
         )}
         {isLoading && <LoadingCardArticles />}
@@ -121,7 +94,5 @@ const Home = () => {
     </GestureHandlerRootView>
   );
 };
-
- 
 
 export default Home;

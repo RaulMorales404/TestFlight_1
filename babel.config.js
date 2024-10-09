@@ -11,6 +11,7 @@ module.exports = {
           '@services':'./src/services',
           '@api':'./src/api',
           '@helpers':'./src/helpers',
+          '@store':'./src/store',
           '@assets': './src/assets',
           // Agrega más alias según sea necesario
         },

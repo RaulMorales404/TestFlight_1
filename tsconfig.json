@@ -8,6 +8,7 @@
       "@assets/*":["assets/*"],
       "@api/*":["api/*"],
       "@helpers/*":["helpers/*"],
+      "@store/*":["store/*"],
       "@services/*":["services/*"] 
     }
 

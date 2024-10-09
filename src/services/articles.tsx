@@ -1,12 +1,15 @@
 import HttpAxiosResponse from '@api/axios';
 import {Articles} from './interfaces/articlesInterface';
 
-export const getArticlesServices = async () => {
+export const getArticlesServices = async (pageSize:number) => {
   const responseArticles = await HttpAxiosResponse.get<Articles>(
     'top-headlines',
     {
       params: {
+        language:'en',
+        pageSize,
         country: 'us', 
+        
       },
     },
   );

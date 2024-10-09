@@ -3,18 +3,21 @@ import 'react-native-reanimated';
 
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigation from './src/navigation/TabNavigation';
-import React from 'react'; 
-
- 
+import React, {useEffect} from 'react';
+import {useStore} from '@store/useStore';
 
 const App = () => {
-   
+  const {getArticles} = useStore();
+  
+  useEffect(() => {
+    getArticles();
+    return () => {};
+  }, []);
 
   return (
-       <NavigationContainer>
+    <NavigationContainer>
       <TabNavigation></TabNavigation>
     </NavigationContainer>
-     
   );
 };
 
