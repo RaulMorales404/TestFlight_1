@@ -71,10 +71,10 @@ export const Cart = ({data, action, stateLiked}: Props) => {
         </View>
 
         <View style={styles.containerDesc}>
-          <Text numberOfLines={3} ellipsizeMode="clip" style={styles.descText}>
+          {/* <Text numberOfLines={3} ellipsizeMode="clip" style={styles.descText}>
             {data.description}
-          </Text>
-          <Text style={styles.readMore}>Read More</Text>
+          </Text> */}
+          {/* <Text style={styles.readMore}>Read More</Text> */}
         </View>
         <View style={styles.continerPublished}>
           <Text style={[styles.descText, styles.publishedAtText]}>

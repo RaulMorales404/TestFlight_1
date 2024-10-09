@@ -81,6 +81,7 @@ const Home = () => {
               </View>
 
           }
+            renderToHardwareTextureAndroid
             ItemSeparatorComponent={() => <View style={{height: 0}} />}
             keyExtractor={(item, index) => item.title + index}
             scrollEventThrottle={16}

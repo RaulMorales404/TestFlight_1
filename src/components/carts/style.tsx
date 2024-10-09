@@ -27,7 +27,7 @@ export const  styles = StyleSheet.create({
     containerAuthor: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingBottom: 8,
+      paddingBottom: 0,
     },
     imgAuthor: {
       width: 25,
@@ -59,7 +59,7 @@ export const  styles = StyleSheet.create({
     },
     continerPublished:{
       alignItems:'flex-end',
-      marginVertical:5
+      marginVertical:0
   
     },
     publishedAtText:{
