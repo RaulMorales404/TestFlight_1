@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -17,41 +17,46 @@ import Toast from 'react-native-toast-message';
 import {LoadingCardArticles} from '@components/loadings/LoadingAcrdsArticles';
 import {saveNewArticle} from '@services/localStorage/SaveArticlesStorage';
 import {useStore} from '@store/useStore';
-import { useCategories } from '@store/useCategories';
+import {useCategories} from '@store/useCategories';
+import {Message} from '@components/message/Message';
 
 const Home = () => {
-  const {articles,isLoading,getArticles,isRefresh,error,setIsRefresh} = useStore();
-  const {categorySelected,categorySelectedId} = useCategories();
+  const {
+    articles,
+    isLoading,
+    getArticles,
+    isRefresh,
+    error,
+    setIsRefresh,
+    isLoadingFooder,
+  } = useStore();
+  const {categorySelected, categorySelectedId} = useCategories();
   const refFlatList = useRef<Animated.FlatList>(null);
+  const isScrolling = useRef(false);
   const [likedArticle, setLikedArticle] = useState<{[key: string]: boolean}>(
     {},
   );
- 
-  
+
   const onRefresh = async () => {
-    if(error) {
+    if (error) {
       setIsRefresh(false);
       return;
-    };
+    }
     const setIsRefreshing = true;
     const showEasyLoad = false;
-    getArticles(8,setIsRefreshing,showEasyLoad,categorySelected);
+    getArticles(8, setIsRefreshing, showEasyLoad, categorySelected);
   };
 
-  const getMoreArticles = ()=>{
-    const page = articles.length+9;
+  const getMoreArticles = () => {
+    const page = articles.length + 9;
     const showEasyLoad = false;
     const setIsRefreshing = false;
-    getArticles(page,setIsRefreshing,showEasyLoad,categorySelected);
+    getArticles(page, setIsRefreshing, showEasyLoad, categorySelected);
     const index = 0;
-    setTimeout(() => {
-      if(articles.length===5){
-        refFlatList.current?.scrollToIndex({index,animated:true});  
-         }
-    }, 500);
-    
-    
-  }
+    if (articles.length === 5 && !isScrolling.current && !error) {
+      refFlatList.current?.scrollToIndex({index, animated: true});
+    }
+  };
 
   const clickLikedArticle = async (idArticle: string, data: Article) => {
     setLikedArticle(prevState => ({
@@ -60,12 +65,6 @@ const Home = () => {
     }));
     await saveNewArticle(data);
   };
-
-  
- 
- 
-
-  
 
   // Usar useCallback para memorizar renderItem y evitar renders innecesarios
   const renderItem = ({item}: {item: Article}) => {
@@ -76,7 +75,6 @@ const Home = () => {
 
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor: '#fff'}}>
-   
       <SafeAreaView style={{flex: 1, marginTop: StatusBar.currentHeight || 0}}>
         <View style={{marginLeft: 10, marginBottom: 10}}>
           <Text style={styles.titleHeader}>News App</Text>
@@ -99,18 +97,23 @@ const Home = () => {
             renderItem={renderItem}
             style={{backgroundColor: 'white'}}
             ListFooterComponent={
-              <View style={{ height: 150, justifyContent: 'center' }}>
-                  <ActivityIndicator color={'#2CB3FC'} size={50}/>
+              <View style={{height: 150, justifyContent: 'center'}}>
+                {isLoadingFooder ? (
+                  <ActivityIndicator color={'#2CB3FC'} size={50} />
+                ) : (
+                  <Message
+                    message={'Ya no tenermos mas noticías'}
+                    stylesText={{fontSize: 20, fontWeight: '300'}}></Message>
+                )}
               </View>
-
-          }
+            }
             renderToHardwareTextureAndroid
-            ItemSeparatorComponent={() => <View style={{height: 0}} />}
             keyExtractor={(item, index) => item.title + index}
-            scrollEventThrottle={16}
+            scrollEventThrottle={30}
             onEndReached={getMoreArticles}
-            onEndReachedThreshold={0.6}
-
+            onEndReachedThreshold={0.7}
+            onScrollBeginDrag={() => (isScrolling.current = true)}
+            onScrollEndDrag={() => (isScrolling.current = false)}
           />
         )}
         {isLoading && <LoadingCardArticles />}

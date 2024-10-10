@@ -36,10 +36,12 @@ export const Cart = ({data, action, stateLiked}: Props) => {
   };
 
   return (
-    <TouchableOpacity onPress={() => showDetails()}   activeOpacity={1} style={styles.container}>
+    <TouchableOpacity onPress={() => showDetails()}   activeOpacity={1} 
+    style={styles.container}
+    >
       <View>
         <FadeInImage uri={data.urlToImage} styles={{...styles.img}} />
-        <View style={{position: 'absolute', bottom: -5, right: 1}}>
+        <View style={{position: 'absolute', bottom: 5, right: 1}}>
           <TouchableOpacity
             style={{
               padding: 10,
@@ -61,21 +63,19 @@ export const Cart = ({data, action, stateLiked}: Props) => {
         </View>
       </View>
 
-      <View style={[styles.containerInfo, {marginTop: 10}]}>
-        <Text style={styles.titleText}>{data.title}</Text>
+      <View style={[styles.containerInfo]}>
+        <Text
+        numberOfLines={2}
+        ellipsizeMode="tail"
+         style={styles.titleText}>{data.title}</Text>
 
         <View style={styles.containerAuthor}>
           <Image source={{uri: data.urlToImage}} style={styles.imgAuthor} />
-          <Text style={styles.authorText}>{data.author}</Text>
+          <Text  numberOfLines={1}
+        ellipsizeMode="tail" style={styles.authorText}>{data.author}</Text>
           <View style={styles.circle} />
         </View>
 
-        <View style={styles.containerDesc}>
-          {/* <Text numberOfLines={3} ellipsizeMode="clip" style={styles.descText}>
-            {data.description}
-          </Text> */}
-          {/* <Text style={styles.readMore}>Read More</Text> */}
-        </View>
         <View style={styles.continerPublished}>
           <Text style={[styles.descText, styles.publishedAtText]}>
             {formattedDate(data.publishedAt)}

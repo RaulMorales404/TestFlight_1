@@ -25,6 +25,11 @@ export const getArticlesServices = async (pageSize: number,category: string) => 
 };
 
 export const searchArticlesServices = async (value: string) => {
-  const responseSearch = await HttpAxiosResponse.get(`everything?q=${value}`);
+  const responseSearch = await HttpAxiosResponse.get('everything',{
+    params:{
+      q:value,
+      language:'es'
+    }
+  });
   return responseSearch.data.articles;
 };

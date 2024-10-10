@@ -2,26 +2,23 @@ import { StyleSheet } from "react-native";
 
 export const  styles = StyleSheet.create({
     container: {
-      marginHorizontal: 10,
-      backgroundColor: '#ededed',
-      borderRadius: 11,
+      paddingVertical:5,
+      backgroundColor: '#f3f3f3',
       paddingBottom: 10,
-      marginBottom:20,
+      marginBottom:5,
     },
     containerInfo: {
       paddingHorizontal: 10,
     },
     img: {
       width: '100%',
-      height: 210,
-      borderTopLeftRadius: 11,
-      borderTopRightRadius:11,
+      height: 230,
       marginBottom: 11,
     },
     titleText: {
       fontWeight: '700',
-      paddingBottom: 7,
-      fontSize: 16,
+      paddingBottom: 5,
+      fontSize: 15,
       color: '#231414',
     },
     containerAuthor: {
@@ -52,15 +49,10 @@ export const  styles = StyleSheet.create({
       fontSize: 13,
       color: '#5f5c5c',
     },
-    readMore: {
-      color: '#2CB3FC',
-      fontWeight: '500',
-      marginTop: 4,
-    },
+    
     continerPublished:{
       alignItems:'flex-end',
       marginVertical:0
-  
     },
     publishedAtText:{
       fontSize:10

@@ -14,7 +14,7 @@ const App = () => {
     Toast.show({
       type: 'error',
       text1: 'Error',
-      text2: 'Algo salió mal 😔',
+      text2: 'Algo salió mal 🔌',
     });
   };
   useEffect(() => {

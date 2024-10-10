@@ -8,6 +8,7 @@ interface NewsArticles {
   error: string;
   isLoading: boolean;
   isRefresh:boolean;
+  isLoadingFooder:boolean;
   setIsRefresh:(value:boolean)=>void;
   getArticles: (
     page?: number,
@@ -21,21 +22,22 @@ export const useStore = create<NewsArticles>()(set => ({
   articles: [],
   error: '',
   isRefresh:false,
+  isLoadingFooder:false,
   isLoading: true,
   setIsRefresh:(value)=>{set({isRefresh:value})},
   getArticles: async (page = 5,updateState,showLoad=true,category="") => {
    
     try {
         updateState
-        ?set((state)=> ({error: '', isRefresh: true}))
-        :set((state)=> ({error: '', isLoading: showLoad}));
+        ?set((state)=> ({error: '', isRefresh: true,isLoadingFooder:true}))
+        :set((state)=> ({error: '', isLoading: showLoad,isLoadingFooder:true}));
 
       const response = await getArticlesServices(page,category);
       await setStoreArticles(response);
 
       updateState
-      ?set((state) => ({articles: response,isRefresh: false}))
-      :set((state) => ({articles: response,isLoading: false,}));
+      ?set((state) => ({articles: response,isRefresh: false,isLoadingFooder:false}))
+      :set((state) => ({articles: response,isLoading: false,isLoadingFooder:false}));
     } catch (hasError) {
       console.log(hasError);
 
@@ -46,12 +48,16 @@ export const useStore = create<NewsArticles>()(set => ({
         :[],
         error: 'Ocurrio unerror',
         isRefresh: false,
-        isLoading: false}));
+        isLoading: false,
+        isLoadingFooder:false
+      }));
     
     } finally{
       set((state) => ({
         isRefresh: false,
-        isLoading: false}));
+        isLoading: false,
+        isLoadingFooder:false,
+      }));
     }
   },
 }));

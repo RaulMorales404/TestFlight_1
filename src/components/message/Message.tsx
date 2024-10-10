@@ -1,9 +1,10 @@
-import {Text, View} from 'react-native';
+import { Text, View, StyleProp, StyleSheet, TextStyle } from 'react-native';
 
 interface Props{
     message:string;
+    stylesText?:StyleProp<TextStyle>;
 }
-export const Message = ({message="Message"}:Props) => {
+export const Message = ({message="Message",stylesText={}}:Props) => {
   return (
     <View
       style={{
@@ -12,13 +13,13 @@ export const Message = ({message="Message"}:Props) => {
         alignItems: 'center',
       }}>
       <Text
-        style={{
+        style={[{
           fontSize: 33,
           fontWeight: '200',
           paddingHorizontal: 10,
           color: '#2CB3FC',
           textAlign: 'center',
-        }}>
+        },stylesText]}>
         {message}
       </Text>
     </View>
