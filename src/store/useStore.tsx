@@ -8,7 +8,12 @@ interface NewsArticles {
   error: string;
   isLoading: boolean;
   isRefresh:boolean;
-  getArticles: (page?: number,updateState?:boolean,showLoad?:boolean) => void;
+  getArticles: (
+    page?: number,
+    updateState?:boolean,
+    showLoad?:boolean,
+    category?:string
+  ) => void;
 }
 
 export const useStore = create<NewsArticles>()(set => ({
@@ -17,13 +22,13 @@ export const useStore = create<NewsArticles>()(set => ({
   isRefresh:false,
   isLoading: true,
 
-  getArticles: async (page = 5,updateState,showLoad=true) => {
+  getArticles: async (page = 5,updateState,showLoad=true,category="") => {
     try {
         updateState
         ?set((state)=> ({error: '', isRefresh: true}))
         :set((state)=> ({error: '', isLoading: showLoad}));
 
-      const response = await getArticlesServices(page);
+      const response = await getArticlesServices(page,category);
       await setStoreArticles(response);
 
       updateState

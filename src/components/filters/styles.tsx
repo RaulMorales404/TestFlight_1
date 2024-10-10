@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     },
     titleText: {
       fontWeight: '700',
-      fontSize: 13
+      fontSize: 13,
+      paddingHorizontal:20
     }
   });

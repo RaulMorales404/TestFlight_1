@@ -1,5 +1,6 @@
 import {HistoryList} from '@components/history/HistoryList';
 import {LoadingSearchArticles} from '@components/loadings/LoadingSearchArticles';
+import {Message} from '@components/message/Message';
 import SearchInput from '@components/searchInput/SearchInput';
 import Trend from '@components/trend/Trend';
 import {searchArticlesServices} from '@services/articles';
@@ -9,9 +10,9 @@ import {
   getSearchHistory,
   saveSearchHistory,
 } from '@services/localStorage/HistorialSearch';
-import { saveNewArticle } from '@services/localStorage/SaveArticlesStorage';
+import {saveNewArticle} from '@services/localStorage/SaveArticlesStorage';
 import React, {useEffect, useRef, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 const Search = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -69,25 +70,23 @@ const Search = () => {
     }));
     await saveNewArticle(item);
   };
-  
+
   useEffect(() => {
     getArticlesStore();
     return () => {};
   }, []);
 
-  
-
-  const deleteHistorySearItem = async  (item:string)=> {
-    const resultNewHistory = historSearch.filter((value)=>{
-      if(value !== item){
+  const deleteHistorySearItem = async (item: string) => {
+    const resultNewHistory = historSearch.filter(value => {
+      if (value !== item) {
         return value;
       }
-    })
-    if(resultNewHistory){
+    });
+    if (resultNewHistory) {
       setHistorSearch(resultNewHistory);
       await saveSearchHistory(resultNewHistory);
     }
-  }
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -129,6 +128,9 @@ const Search = () => {
             />
           </View>
         )
+      )}
+      {articles.length === 0 && textInput && !isLoading  &&(
+        <Message message={'No se encontraron resultados.'}></Message>
       )}
     </View>
   );

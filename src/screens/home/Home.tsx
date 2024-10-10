@@ -1,4 +1,4 @@
-import React, {useState, } from 'react';
+import React, {useEffect, useRef, useState, } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -16,10 +16,12 @@ import {styles} from './stylesHome';
 import {LoadingCardArticles} from '@components/loadings/LoadingAcrdsArticles';
 import {saveNewArticle} from '@services/localStorage/SaveArticlesStorage';
 import {useStore} from '@store/useStore';
+import { useCategories } from '@store/useCategories';
 
 const Home = () => {
   const {articles,isLoading,getArticles,isRefresh} = useStore();
-  
+  const {categorySelected} = useCategories();
+  const refFlatList = useRef<Animated.FlatList>(null);
   const [likedArticle, setLikedArticle] = useState<{[key: string]: boolean}>(
     {},
   );
@@ -27,14 +29,15 @@ const Home = () => {
   
   const onRefresh = async () => {
     const setIsRefresh = true;
-    getArticles(8,setIsRefresh);
+    const showEasyLoad = false;
+    getArticles(8,setIsRefresh,showEasyLoad,categorySelected);
   };
 
   const getMoreArticles = ()=>{
     const page = articles.length+9;
     const showEasyLoad = false;
     const setIsRefresh = false;
-    getArticles(page,setIsRefresh,showEasyLoad);
+    getArticles(page,setIsRefresh,showEasyLoad,categorySelected);
   }
 
   const clickLikedArticle = async (idArticle: string, data: Article) => {
@@ -46,6 +49,13 @@ const Home = () => {
   };
 
   
+  useEffect(() => {
+    const index =0;
+     refFlatList.current?.scrollToIndex({index,animated:true});
+    return () => {
+    };
+  }, [articles.length===5]);
+
   // Usar useCallback para memorizar renderItem y evitar renders innecesarios
   const renderItem = ({item}: {item: Article}) => {
     return (
@@ -63,6 +73,7 @@ const Home = () => {
         {!isLoading && (
           <Animated.FlatList
             data={articles}
+            ref={refFlatList}
             ListHeaderComponent={<View style={{paddingBottom: 20}} />}
             refreshControl={
               <RefreshControl
