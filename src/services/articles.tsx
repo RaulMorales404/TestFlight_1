@@ -12,7 +12,7 @@ export const getArticlesServices = async (pageSize: number,category: string) => 
   const config = category
     ? {...paramsConfig,category}
     : {...paramsConfig};
-console.log(config)
+
   const responseArticles = await HttpAxiosResponse.get<Articles>(
     'top-headlines',
     {

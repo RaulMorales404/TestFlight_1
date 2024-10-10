@@ -8,6 +8,7 @@ interface NewsArticles {
   error: string;
   isLoading: boolean;
   isRefresh:boolean;
+  setIsRefresh:(value:boolean)=>void;
   getArticles: (
     page?: number,
     updateState?:boolean,
@@ -21,8 +22,9 @@ export const useStore = create<NewsArticles>()(set => ({
   error: '',
   isRefresh:false,
   isLoading: true,
-
+  setIsRefresh:(value)=>{set({isRefresh:value})},
   getArticles: async (page = 5,updateState,showLoad=true,category="") => {
+   
     try {
         updateState
         ?set((state)=> ({error: '', isRefresh: true}))
@@ -43,8 +45,13 @@ export const useStore = create<NewsArticles>()(set => ({
         ? articlesStorage
         :[],
         error: 'Ocurrio unerror',
+        isRefresh: false,
         isLoading: false}));
     
+    } finally{
+      set((state) => ({
+        isRefresh: false,
+        isLoading: false}));
     }
   },
 }));

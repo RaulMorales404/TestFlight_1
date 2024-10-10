@@ -47,7 +47,7 @@ const listCategories: CategoryListType[] = [
     },
   ];
 export const useCategories = create<Categories>()(set => ({
-  categorySelected: 'Popular',
+  categorySelected: '',
   categorySelectedId: 0,
   categories: listCategories,
   selectCategory: (category: string, id: number) => {
