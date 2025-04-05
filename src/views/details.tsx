@@ -24,6 +24,7 @@ export function DetailsFlight() {
     {title: 'Est. Landing', data: '09:21'},
   ];
   const status = 'In the air';
+  
   return (
     <View style={{flex: 1,}}>
       <FlexView>

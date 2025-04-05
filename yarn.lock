@@ -2965,6 +2965,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.71.10":
+  version: 5.71.10
+  resolution: "@tanstack/query-core@npm:5.71.10"
+  checksum: 1169cd67a338149cbd7d2213fd8049f9e87e128436d3a23b99a7a9668ab6620ac0bd7c7503948468465e1209d5dcde23ee8e35adc2cf424fdf8d1e3f26d35ab2
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.71.10":
+  version: 5.71.10
+  resolution: "@tanstack/react-query@npm:5.71.10"
+  dependencies:
+    "@tanstack/query-core": 5.71.10
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 00817ef272226a15125696856f7dcfcb084f59b57840a54a5908d6bf27df231b06b7704237d7ba9067ba15a4ff9fcf4223abf00874bf508b410dfa42542462eb
+  languageName: node
+  linkType: hard
+
 "@tokenizer/token@npm:^0.3.0":
   version: 0.3.0
   resolution: "@tokenizer/token@npm:0.3.0"
@@ -3359,54 +3377,6 @@ __metadata:
   checksum: 4f656b7b4672f2ce6e272f2427d8b0824ed11546a601d8d5412b9d7704e83db38a8d9f402ecdf2b9063fc164af842ad0ec4a55819f621ed7e7ea4d1efcc74524
   languageName: node
   linkType: hard
-
-"AppNoticias@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "AppNoticias@workspace:."
-  dependencies:
-    "@babel/core": ^7.20.0
-    "@babel/plugin-transform-private-methods": ^7.25.4
-    "@babel/preset-env": ^7.20.0
-    "@babel/runtime": ^7.20.0
-    "@react-native-async-storage/async-storage": ^2.0.0
-    "@react-native-community/datetimepicker": ^8.3.0
-    "@react-native-masked-view/masked-view": ^0.3.1
-    "@react-native/babel-preset": 0.75.2
-    "@react-native/eslint-config": 0.75.2
-    "@react-native/metro-config": 0.75.2
-    "@react-native/typescript-config": 0.75.2
-    "@react-navigation/bottom-tabs": ^6.6.1
-    "@react-navigation/native": ^7.1.5
-    "@react-navigation/native-stack": ^7.3.9
-    "@react-navigation/stack": ^7.2.9
-    "@types/react": ^18.2.6
-    "@types/react-test-renderer": ^18.0.0
-    axios: ^1.7.7
-    babel-jest: ^29.6.3
-    babel-plugin-module-resolver: ^5.0.2
-    date-fns: ^4.1.0
-    eslint: ^8.19.0
-    jest: ^29.6.3
-    metro-react-native-babel-preset: ^0.77.0
-    prettier: 2.8.8
-    react: 18.3.1
-    react-native: 0.75.2
-    react-native-calendars: ^1.1310.0
-    react-native-date-picker: ^5.0.11
-    react-native-easy-content-loader: ^0.3.2
-    react-native-gesture-handler: ^2.25.0
-    react-native-image-colors: ^1.5.1
-    react-native-reanimated: ^3.17.2
-    react-native-safe-area-context: ^4.11.0
-    react-native-screens: ^3.34.0
-    react-native-svg: ^15.6.0
-    react-native-toast-message: ^2.2.1
-    react-test-renderer: 18.3.1
-    styled-components: ^6.1.17
-    typescript: 5.0.4
-    zustand: ^5.0.0-rc.2
-  languageName: unknown
-  linkType: soft
 
 "abbrev@npm:^2.0.0":
   version: 2.0.0
@@ -10330,6 +10300,55 @@ __metadata:
   checksum: 3b34a3d77165a2cb82b34014b3aba93b1c4637a5011807557dc2f3da826c59975a5ccad765721c4648b39817e3472789f9b0fa98fc854c5c1c7a1e632aacdc28
   languageName: node
   linkType: hard
+
+"testflight@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "testflight@workspace:."
+  dependencies:
+    "@babel/core": ^7.20.0
+    "@babel/plugin-transform-private-methods": ^7.25.4
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.20.0
+    "@react-native-async-storage/async-storage": ^2.0.0
+    "@react-native-community/datetimepicker": ^8.3.0
+    "@react-native-masked-view/masked-view": ^0.3.1
+    "@react-native/babel-preset": 0.75.2
+    "@react-native/eslint-config": 0.75.2
+    "@react-native/metro-config": 0.75.2
+    "@react-native/typescript-config": 0.75.2
+    "@react-navigation/bottom-tabs": ^6.6.1
+    "@react-navigation/native": ^7.1.5
+    "@react-navigation/native-stack": ^7.3.9
+    "@react-navigation/stack": ^7.2.9
+    "@tanstack/react-query": ^5.71.10
+    "@types/react": ^18.2.6
+    "@types/react-test-renderer": ^18.0.0
+    axios: ^1.7.7
+    babel-jest: ^29.6.3
+    babel-plugin-module-resolver: ^5.0.2
+    date-fns: ^4.1.0
+    eslint: ^8.19.0
+    jest: ^29.6.3
+    metro-react-native-babel-preset: ^0.77.0
+    prettier: 2.8.8
+    react: 18.3.1
+    react-native: 0.75.2
+    react-native-calendars: ^1.1310.0
+    react-native-date-picker: ^5.0.11
+    react-native-easy-content-loader: ^0.3.2
+    react-native-gesture-handler: ^2.25.0
+    react-native-image-colors: ^1.5.1
+    react-native-reanimated: ^3.17.2
+    react-native-safe-area-context: ^4.11.0
+    react-native-screens: ^3.34.0
+    react-native-svg: ^15.6.0
+    react-native-toast-message: ^2.2.1
+    react-test-renderer: 18.3.1
+    styled-components: ^6.1.17
+    typescript: 5.0.4
+    zustand: ^5.0.0-rc.2
+  languageName: unknown
+  linkType: soft
 
 "text-table@npm:^0.2.0":
   version: 0.2.0
