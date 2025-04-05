@@ -13,7 +13,7 @@
       "@services/*": ["services/*"],
       "@models/*": ["models/*"],
       "@hooks/*": ["hooks/*"],
-      "@viewmodels/*": ["./src/viewmodels/*"]
+      "@viewmodels/*": ["viewmodels/*"]
     }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"

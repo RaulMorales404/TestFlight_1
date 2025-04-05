@@ -13,36 +13,20 @@ import {
 } from '@components/styles/styles';
 
 import {useNavigation} from '@react-navigation/native';
+import { useSearchFlightViewModel } from '@viewmodels/useSearchFlightViewModel';
 import {useState} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 
 export const SearchFlight = () => {
-  const navigation = useNavigation();
-  const [isSearching, setIsSearching] = useState(false);
-  const [hasErrorSearching, stHasErrorSearching] = useState(false);
-  const [activeTab, setActiveTab] = useState<'flight' | 'destination'>(
-    'flight',
-  );
-  const [stateDestination, setStateDestination] = useState({
-    origin: 'Mexico City',
-    destination: 'Cancún',
-    flightNumber: '500',
-    dateDestine: 'Tuesday, Nov  21',
-    dateflightNumber: 'Tuesday, Nov  21',
-  });
-
-  const goToProfile = () => {
-    setIsSearching(false);
-     navigation.navigate('ResultSearchFlight');
-  };
-
-  const updateState = (key: string, value: string | boolean) => {
-    setStateDestination(prevState => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
-
+  const {
+    activeTab,
+    goToProfile,
+    hasErrorSearching,
+    stateDestination,
+    isSearching,
+    setActiveTab,
+    updateState,
+  } = useSearchFlightViewModel();
   return (
     <View style={{flex: 1}}>
       <FlexView
@@ -145,16 +129,18 @@ export const SearchFlight = () => {
             {isSearching && <ActivityIndicator style={{marginLeft: 10}} />}
           </FlexView>
         </SearchButton>
-       { hasErrorSearching && <CustomText
-          fontSize="15px"
-          fontWeight="600"
-          marginTop="-10px"
-          marginBottom="25px"
-          color="#cf0000"
-          textAlign="center"
-          lineHeight="14px">
-          No se encotraron Vuelos
-        </CustomText>}
+        {hasErrorSearching && (
+          <CustomText
+            fontSize="15px"
+            fontWeight="600"
+            marginTop="-10px"
+            marginBottom="25px"
+            color="#cf0000"
+            textAlign="center"
+            lineHeight="14px">
+            No se encotraron Vuelos
+          </CustomText>
+        )}
 
         {activeTab === 'destination' ? (
           <Foother
