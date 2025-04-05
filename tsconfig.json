@@ -1,17 +1,20 @@
 {
-  "compilerOptions":{
+  "compilerOptions": {
     "baseUrl": "src",
     "allowJs": true,
     "paths": {
-      "@components/*":["components/*"],
-      "@screens/*":["screens/*"], 
-      "@assets/*":["assets/*"],
-      "@api/*":["api/*"],
-      "@helpers/*":["helpers/*"],
-      "@store/*":["store/*"],
-      "@services/*":["services/*"] 
+      "@components/*": ["components/*"],
+      "@navigation/*":["navigation/*"],
+      "@views/*": ["views/*"], 
+      "@assets/*": ["assets/*"],
+      "@api/*": ["api/*"],
+      "@helpers/*": ["helpers/*"],
+      "@store/*": ["store/*"],
+      "@services/*": ["services/*"],
+      "@models/*": ["models/*"],
+      "@hooks/*": ["hooks/*"],
+      "@viewmodels/*": ["./src/viewmodels/*"]
     }
-
   },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }

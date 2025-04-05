@@ -1,0 +1,1 @@
+export { default as imgBackgroundColor } from './imageBaground.png';
