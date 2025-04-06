@@ -1,13 +1,12 @@
-import { IconArrow, IconCalendar, IconLeftArrow } from "@assets/icons";
-import { CartFlight } from "@components/cartFlight/CartFlight";
-import { CustomText, FlexView } from "@components/styles/styles";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
+import {IconArrow, IconCalendar, IconLeftArrow} from '@assets/icons';
+import {CartFlight} from '@components/cartFlight/CartFlight';
+import {CustomText, FlexView} from '@components/styles/styles';
+import {useResultFlightViewModel} from '@viewmodels/useResultFlightViewModel';
+import {Animated, Image, Text, TouchableOpacity, View} from 'react-native';
 
-export const ResultFlight = () => {
-  const navigation = useNavigation(); 
-  const [isNumberFlight, setIsNumberFlight] = useState<boolean>(false);
+export const ResultFlight = ({route}) => {
+  const {showDetails, navigation, dataSearch, flightData} =
+    useResultFlightViewModel(route);
 
   return (
     <View
@@ -22,36 +21,39 @@ export const ResultFlight = () => {
         justifyContent="space-between"
         marginBottom="25px">
         <View>
-          <TouchableOpacity onPress={()=>navigation.goBack()}>
-            <Image source={IconLeftArrow} style={{width: 31, height: 31 }} />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={IconLeftArrow} style={{width: 31, height: 31}} />
+          </TouchableOpacity>
         </View>
         <View>
-          <View >
-            {isNumberFlight ? (
+          <View>
+            {dataSearch.numberTicket ? (
               <CustomText
                 fontSize="32px"
                 fontWeight="700"
                 textAlign="right"
                 lineHeight="32px">
-                AM 500
+                AM {dataSearch.numberTicket}
               </CustomText>
             ) : (
-              <FlexView direction="row" justifyContent="flex-end" >
+              <FlexView direction="row" justifyContent="flex-end">
                 <CustomText
                   fontSize="32px"
                   fontWeight="700"
                   textAlign="right"
                   lineHeight="32px">
-                  MEX
+                  {dataSearch.origin.substring(0, 3).toUpperCase()}
                 </CustomText>
-                <Image source={IconArrow} style={{width: 20, height: 20,top:4,left:-2 }} />
-                 <CustomText
+                <Image
+                  source={IconArrow}
+                  style={{width: 20, height: 20, top: 4, left: -2}}
+                />
+                <CustomText
                   fontSize="32px"
                   fontWeight="700"
                   textAlign="right"
                   lineHeight="32px">
-                  CUN
+                  {dataSearch.destinate.substring(0, 3).toUpperCase()}
                 </CustomText>
               </FlexView>
             )}
@@ -62,8 +64,8 @@ export const ResultFlight = () => {
             fontWeight="400"
             textAlign="right"
             lineHeight="20px">
-            Tuesday, Nov 21 | <Image source={IconCalendar} style={{width: 14, height: 14 }} />{' '}
-                
+            {dataSearch.date} |{' '}
+            <Image source={IconCalendar} style={{width: 14, height: 14}} />{' '}
             <Text style={{textDecorationLine: 'underline'}}>Change</Text>
           </CustomText>
         </View>
@@ -84,17 +86,21 @@ export const ResultFlight = () => {
             fontWeight="400"
             color="#00000080"
             lineHeight="20px">
-            4 results
+            {flightData.length} results
           </CustomText>
         </View>
       </FlexView>
       <View></View>
 
       <Animated.FlatList
-        data={[1, 2, 3, 4, 5, 6]}
+        data={flightData}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<View style={{paddingBottom: 0}} />}
-        renderItem={() =><TouchableOpacity onPress={()=>navigation.navigate("DetailsFlight")}><CartFlight/></TouchableOpacity>}
+        renderItem={({item}) => (
+          <TouchableOpacity onPress={() => showDetails(item)}>
+            <CartFlight detailFligth={{...item.segment}} />
+          </TouchableOpacity>
+        )}
         style={{backgroundColor: 'white'}}
         ListFooterComponent={
           <View style={{height: 150, justifyContent: 'center'}}>

@@ -1,20 +1,26 @@
 import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+import {useFlightStore} from '@store/storeFlight';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-// Definir tipos para el estado de destino
-interface DestinationState {
-  origin: string;
-  destination: string;
-  flightNumber: string;
-  dateDestine: string;
-  dateflightNumber: string;
-}
+import {useDestinationFlightViewModel} from './useDestinationFlightViewModel';
+import {DestinationState, RootStackParamList} from '@models/navigationModel';
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'ResultSearchFlight'
+>;
 
 export const useSearchFlightViewModel = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
-  // Estados
-  const [isSearching, setIsSearching] = useState(false);
+  const {
+    flightData,
+    isLoading: storeLoading,
+    isError: storeError,
+    error: storeErrorMessage,
+  } = useFlightStore();
+  const serhRef = useRef('');
   const [hasErrorSearching, setHasErrorSearching] = useState(false);
   const [activeTab, setActiveTab] = useState<'flight' | 'destination'>(
     'flight',
@@ -26,10 +32,28 @@ export const useSearchFlightViewModel = () => {
     dateDestine: 'Tuesday, Nov 21',
     dateflightNumber: 'Tuesday, Nov 21',
   });
+  const updateStateSelecyed = {
+    ...stateDestination,
+    flightNumber:
+      activeTab === 'destination' ? '' : stateDestination.flightNumber,
+  };
 
-  const goToProfile = () => {
-    setIsSearching(false);
-    navigation.navigate('ResultSearchFlight');
+  const {fetchData} = useDestinationFlightViewModel(
+    serhRef.current === 'destination' ? '' : stateDestination.flightNumber,
+  );
+
+  const goToProfile = async () => {
+    try {
+      await fetchData();
+
+      setTimeout(() => {
+        navigation.navigate('ResultSearchFlight', {
+          stateDestination: {...updateStateSelecyed},
+        });
+      }, 15);
+    } catch (error) {
+      console.error('Error al ejecutar fetchData:', error);
+    }
   };
 
   const updateState = (key: string, value: string | boolean) => {
@@ -42,10 +66,12 @@ export const useSearchFlightViewModel = () => {
   return {
     updateState,
     goToProfile,
-    stateDestination,
     setActiveTab,
-    isSearching,
+    serhRef,
+    stateDestination,
     activeTab,
     hasErrorSearching,
+    storeLoading,
+    flightData,
   };
 };

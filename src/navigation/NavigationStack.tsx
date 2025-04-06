@@ -1,15 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, RouteProp } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { SearchFlight } from '../views/searchFlight';
 import { ResultFlight } from '../views/resultFlight';
 import { DetailsFlight } from '../views/details';
-
-export type RootStackParamList = {
-  SearchFlight: undefined;
-  ResultSearchFlight: undefined;
-  DetailsFlight: undefined;
-};
+import { RootStackParamList } from '@models/navigationModel';
 
 
 

@@ -12,21 +12,21 @@ import {
   TabText,
 } from '@components/styles/styles';
 
-import {useNavigation} from '@react-navigation/native';
-import { useSearchFlightViewModel } from '@viewmodels/useSearchFlightViewModel';
-import {useState} from 'react';
+import {useSearchFlightViewModel} from '@viewmodels/useSearchFlightViewModel';
 import {ActivityIndicator, View} from 'react-native';
 
 export const SearchFlight = () => {
   const {
-    activeTab,
     goToProfile,
-    hasErrorSearching,
-    stateDestination,
-    isSearching,
     setActiveTab,
     updateState,
+    serhRef,
+    activeTab,
+    hasErrorSearching,
+    stateDestination,
+    storeLoading,
   } = useSearchFlightViewModel();
+
   return (
     <View style={{flex: 1}}>
       <FlexView
@@ -56,12 +56,18 @@ export const SearchFlight = () => {
           <Tabs>
             <TabButton
               active={activeTab === 'flight'}
-              onPress={() => setActiveTab('flight')}>
+              onPress={() => {
+                setActiveTab('flight');
+                serhRef.current = 'flight';
+              }}>
               <TabText active={activeTab === 'flight'}>Flight Number</TabText>
             </TabButton>
             <TabButton
               active={activeTab === 'destination'}
-              onPress={() => setActiveTab('destination')}>
+              onPress={() => {
+                setActiveTab('destination');
+                serhRef.current = 'destination';
+              }}>
               <TabText active={activeTab === 'destination'}>
                 Destination
               </TabText>
@@ -122,11 +128,13 @@ export const SearchFlight = () => {
           </FlexView>
         )}
         <SearchButton
-          backgroundColor={isSearching ? '#6e6e6e' : '#000'}
+          backgroundColor={storeLoading ? '#2d2d2d' : '#000'}
           onPress={() => goToProfile()}>
           <FlexView width="100%" justifyContent="center" direction="row">
             <SearchButtonText>Search Flight</SearchButtonText>
-            {isSearching && <ActivityIndicator style={{marginLeft: 10}} />}
+            {storeLoading && (
+              <ActivityIndicator color={'white'} style={{marginLeft: 10}} />
+            )}
           </FlexView>
         </SearchButton>
         {hasErrorSearching && (

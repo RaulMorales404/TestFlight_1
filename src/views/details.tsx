@@ -1,40 +1,43 @@
-import { IconLeftArrow } from "@assets/icons";
-import { imgBackgroundColor } from "@assets/imgs";
-import { CartDetailFlight } from "@components/cartDetailFlight/CartDetailFlight";
-import { ContainerDetail, CustomButtonRadius, CustomText, FlexView } from "@components/styles/styles";
-import { getStatusFlight } from "@helpers/TypeFlight/TypeFlight";
-import { useNavigation } from "@react-navigation/native";
-import { Image, View } from "react-native";
+import {IconLeftArrow} from '@assets/icons';
+import {imgBackgroundColor} from '@assets/imgs';
+import {CartDetailFlight} from '@components/cartDetailFlight/CartDetailFlight';
+import {
+  ContainerDetail,
+  CustomButtonRadius,
+  CustomText,
+  FlexView,
+} from '@components/styles/styles';
+import {
+  getStatusFlight,
+  getTypeFlight,
+  getTypeFlightName,
+} from '@helpers/TypeFlight/TypeFlight';
+import {useDetailFlightModelView} from '@viewmodels/useDetailFlightModelView';
+import {format} from 'date-fns';
+import {Image, View} from 'react-native';
 
-
-interface DepartureItem {
-  title: string;
-  data: string;
-}
 export function DetailsFlight() {
-    const navigation = useNavigation(); 
-  
-  const departure: DepartureItem[] = [
-    {title: 'Terminal', data: '2'},
-    {title: 'Gate', data: '62'},
-    {title: 'Boarding', data: '06:00'},
-  ];
-  const arrive: DepartureItem[] = [
-    {title: 'Terminal', data: '4'},
-    {title: 'Est. Landing', data: '09:21'},
-  ];
-  const status = 'In the air';
-  
+  const {
+    status,
+    arrive,
+    navigation,
+    dataDetails,
+    departure,
+    getStatusFlight,
+    getTypeFlightName,
+    getTypeFlight,
+  } = useDetailFlightModelView();
+
   return (
-    <View style={{flex: 1,}}>
+    <View style={{flex: 1}}>
       <FlexView>
         <Image
           source={imgBackgroundColor}
           style={{width: '100%', height: 400}}
         />
-  
-        <CustomButtonRadius onPress={()=>navigation.goBack()}>
-            <Image
+
+        <CustomButtonRadius onPress={() => navigation.goBack()}>
+          <Image
             source={IconLeftArrow}
             style={{width: 31, height: 31, borderRadius: 100}}
           />
@@ -68,7 +71,7 @@ export function DetailsFlight() {
                   color="#0000004D"
                   textAlign="right"
                   lineHeight="32px">
-                  AM
+                  {dataDetails.marketingCarrier}
                 </CustomText>
                 <CustomText
                   fontSize="32px"
@@ -76,7 +79,7 @@ export function DetailsFlight() {
                   textAlign="right"
                   lineHeight="32px">
                   {' '}
-                  500
+                  {dataDetails.operatingFlightCode}
                 </CustomText>
               </FlexView>
 
@@ -85,14 +88,14 @@ export function DetailsFlight() {
                 fontWeight="400"
                 textAlign="right"
                 lineHeight="20px">
-                Tuesday, Nov 21
+                {format(dataDetails.arrivalDateTime, 'EEEE, MMM dd')}
               </CustomText>
             </View>
 
             <FlexView
               width="65px"
               height="28px"
-              backgroundColor="#000"
+              backgroundColor={getTypeFlight[status]}
               justifyContent="center"
               borderRadius="4px"
               borderBottomEndRadius="px"
@@ -103,7 +106,7 @@ export function DetailsFlight() {
                 fontWeight="600"
                 lineHeight="20px"
                 color="#FFFFFF">
-                Arrived
+                {getTypeFlightName[status]}
               </CustomText>
             </FlexView>
           </FlexView>
@@ -129,7 +132,7 @@ export function DetailsFlight() {
             padding="0px 15px">
             <View>
               <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
-                06:24
+                {format(new Date(dataDetails.departureDateTime), 'HH:mm')}
               </CustomText>
             </View>
             <View
@@ -146,7 +149,7 @@ export function DetailsFlight() {
             </View>
             <View>
               <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
-                09:21
+                {format(new Date(dataDetails.arrivalDateTime), 'HH:mm')}
               </CustomText>
             </View>
           </FlexView>
@@ -157,7 +160,7 @@ export function DetailsFlight() {
             padding="0px 15px">
             <View>
               <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
-                MEX
+                {dataDetails.departureAirport}
               </CustomText>
             </View>
             <View>
@@ -166,12 +169,14 @@ export function DetailsFlight() {
                 fontWeight="600"
                 lineHeight="22px"
                 color="#00000066">
-                2h 28m
+                {`${Math.floor(dataDetails.flightDurationInMinutes / 60)}h ${
+                  dataDetails.flightDurationInMinutes % 60
+                }m`}
               </CustomText>
             </View>
             <View style={{marginBottom: 25}}>
               <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
-                CUN
+                {dataDetails.arrivalAirport}
               </CustomText>
             </View>
           </FlexView>
@@ -192,7 +197,7 @@ export function DetailsFlight() {
         <CartDetailFlight
           icon="Arrival"
           title={'Arrival'}
-          subTitle={'Cancún  - Terminal 4'}
+          subTitle={`${dataDetails.destination}  - Terminal ${dataDetails.arrivalTerminal}`}
           data={arrive}
         />
       </ContainerDetail>

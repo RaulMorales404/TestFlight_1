@@ -1,21 +1,48 @@
-import { IconRigthArrow } from "@assets/icons";
-import { ContainerCard, CustomText, FlexView, RouteInfo } from "@components/styles/styles";
-import { getStatusFlight, getTypeFlight } from "@helpers/TypeFlight/TypeFlight";
-import { useState } from "react";
-import { Image, Switch, View } from "react-native";
+import {IconRigthArrow} from '@assets/icons';
+import {
+  ContainerCard,
+  CustomText,
+  FlexView,
+  RouteInfo,
+} from '@components/styles/styles';
+import { getStatusFlight, getTypeFlight, getTypeFlightName } from '@helpers/TypeFlight/TypeFlight';
+import { format } from 'date-fns';
+import {useState} from 'react';
+import {Image, Switch, View} from 'react-native';
 
-export const CartFlight = () => {
+type FlightStatus = 'DELAYED' | 'ON_TIME' | 'ARRIVED';
+
+
+interface CartFlightProps {
+  detailFligth: {
+    segmentCode: string;
+    departureAirport: string;
+    arrivalAirport: string;
+    departureDateTime: Date; // Cambiado a Date
+    arrivalDateTime: Date;   // Cambiado a Date
+    flightStatus: 'ARRIVED' | 'DEPARTED' | 'ON_TIME' | string;
+    operatingCarrier: string;
+    marketingCarrier: string;
+    operatingFlightCode: string;
+    marketingFlightCode: string;
+    flightDurationInMinutes: number;
+    aircraftType: string;
+    stops: any[];
+  };
+}
+export const CartFlight = ({detailFligth}: CartFlightProps) => {
   const [isFavorite, setIsFavorite] = useState(true);
 
+ 
 
- const status ="In the air"
+  const status: FlightStatus = detailFligth.flightStatus;
   return (
     <ContainerCard>
       <FlexView direction="row" justifyContent="space-between">
         <FlexView
           width="80px"
           height="28px"
-          backgroundColor={getTypeFlight['Arrived']}
+          backgroundColor={getTypeFlight[status]}
           justifyContent="center"
           alignItems="center"
           borderBottomEndRadius="18px"
@@ -25,7 +52,7 @@ export const CartFlight = () => {
             fontWeight="600"
             lineHeight="20px"
             color="#FFFFFF">
-            Arrived
+            {getTypeFlightName[status]}
           </CustomText>
         </FlexView>
         {isFavorite && (
@@ -52,20 +79,24 @@ export const CartFlight = () => {
           padding="0px 15px">
           <View>
             <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
-              06:24
+              {format(new Date(detailFligth.departureDateTime), 'HH:mm')}
             </CustomText>
           </View>
-          <View style={{
-            alignItems:'center',
-            justifyContent:'center',
-            flex:1,
-            height:20
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              height: 20,
             }}>
-          <Image source={getStatusFlight[status].icon} style={{...getStatusFlight[status].size}} />
+            <Image
+              source={getStatusFlight[status].icon}
+              style={{...getStatusFlight[status].size}}
+            />
           </View>
           <View>
             <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
-              09:21
+            {format(new Date(detailFligth.arrivalDateTime), 'HH:mm')}
             </CustomText>
           </View>
         </FlexView>
@@ -76,7 +107,7 @@ export const CartFlight = () => {
           padding="0px 15px">
           <View>
             <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
-              MEX
+              {detailFligth.departureAirport}
             </CustomText>
           </View>
           <View>
@@ -85,12 +116,12 @@ export const CartFlight = () => {
               fontWeight="600"
               lineHeight="22px"
               color="#00000066">
-              2h 28m
+              {`${Math.floor(detailFligth.flightDurationInMinutes / 60)}h ${detailFligth.flightDurationInMinutes % 60}m`}
             </CustomText>
           </View>
           <View>
             <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
-              CUN
+              {detailFligth.arrivalAirport}
             </CustomText>
           </View>
         </FlexView>
@@ -103,7 +134,7 @@ export const CartFlight = () => {
           padding="0px 15px">
           <View>
             <CustomText fontSize="12px" fontWeight="600" lineHeight="20px">
-              AM 500
+              {detailFligth.operatingCarrier} {detailFligth.operatingFlightCode}
             </CustomText>
           </View>
           <FlexView direction="row" alignItems="center">
@@ -116,7 +147,10 @@ export const CartFlight = () => {
               lineHeight="25px">
               Details
             </CustomText>
-            <Image source={IconRigthArrow} style={{width: 8, height: 8,top:1, left:2}} />
+            <Image
+              source={IconRigthArrow}
+              style={{width: 8, height: 8, top: 1, left: 2}}
+            />
           </FlexView>
         </FlexView>
       </RouteInfo>

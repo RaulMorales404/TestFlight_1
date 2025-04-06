@@ -25,11 +25,6 @@ export const CustomImputDate = ({
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  
-
- 
- 
- 
 
   return (
     <ContainerTextInput
