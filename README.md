@@ -1,92 +1,25 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Agenda de Vuelos
 
-# Getting Started
+Este proyecto es una aplicación móvil que permite consultar información sobre vuelos, incluyendo la posibilidad de buscar vuelos por número de vuelo, ver todos los vuelos con destino a un lugar específico, ver los detalles de cada vuelo, y obtener el estado de los vuelos.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Características
 
-## Step 1: Start the Metro Server
+- **Buscar vuelos por número de vuelo**: Permite buscar un vuelo en específico mediante su número de vuelo.
+- **Ver vuelos con destino a un lugar específico**: Muestra todos los vuelos con destino a un lugar determinado.
+- **Ver detalles de cada vuelo**: Permite consultar información detallada de cada vuelo, incluyendo horarios y estados.
+- **Estado de los vuelos**: Muestra información en tiempo real sobre el estado de los vuelos (por ejemplo, si están retrasados o a tiempo).
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Características Técnicas
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **React Native CLI**: Versión `0.75.2`, utilizada para el desarrollo de aplicaciones móviles nativas.
+- **Zustand**: Utilizado para el manejo del estado global de la aplicación de forma sencilla y eficiente.
+- **Styled Components**: Para el maquetado y la creación de componentes reutilizables y estilos dinámicos.
+- **Tanstack Query y Axios**: Utilizados para el manejo de los endpoints de la API y la gestión de la cache de las solicitudes de red.
+- **Babel**: Para el manejo de importaciones de componentes personalizados y la compatibilidad con las últimas características de JavaScript.
+- **Arquitectura MVVM**: Modelo-Vista-ViewModel, una arquitectura clara y escalable para la organización de la aplicación.
 
+## Instalación
 
-<img width="564" alt="Captura de pantalla 2024-09-17 a la(s) 12 12 56 a m" src="https://github.com/user-attachments/assets/370bb813-2a1a-4282-9985-145422f7b7d7">
-<img width="564" alt="Captura de pantalla 2024-09-17 a la(s) 12 13 05 a m" src="https://github.com/user-attachments/assets/8352cf98-bcf4-43f3-80f2-333e0536f08b">
-<img width="520" alt="Captura de pantalla 2024-09-17 a la(s) 12 12 26 a m" src="https://github.com/user-attachments/assets/929822bb-4c03-489c-9e11-f6c3b4a12e5a">
-
-<img width="564" alt="Captura de pantalla 2024-09-19 a la(s) 4 55 44 p m" src="https://github.com/user-attachments/assets/270a6ef4-a584-4e10-993f-726a02248674">
-
-<img width="564" alt="Captura de pantalla 2024-09-19 a la(s) 4 55 50 p m" src="https://github.com/user-attachments/assets/ea3c928b-c057-4237-abbd-ef484b8a9ffe">
-
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# AppNoticias
-# TestFlight_1
-# TestFlight_1
+1. Clona este repositorio en tu máquina local:
+   ```bash
+   git clone https://github.com/tu-usuario/agenda-de-vuelos.git
