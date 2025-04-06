@@ -1,5 +1,11 @@
 # Agenda de Vuelos
 
+![Captura de pantalla 2025-04-06 a la(s) 4 52 44 p m](https://github.com/user-attachments/assets/b35bc588-882a-4403-ae61-6b5ba3185fda)
+![Captura de pantalla 2025-04-06 a la(s) 4 53 19 p m](https://github.com/user-attachments/assets/8b509003-7732-4efe-92d7-f6630ee865c7)
+![Captura de pantalla 2025-04-06 a la(s) 4 53 39 p m](https://github.com/user-attachments/assets/2986c5f6-f4ce-43df-9a4c-813369a8e2db)
+
+
+
 Este proyecto es una aplicación móvil que permite consultar información sobre vuelos, incluyendo la posibilidad de buscar vuelos por número de vuelo, ver todos los vuelos con destino a un lugar específico, ver los detalles de cada vuelo, y obtener el estado de los vuelos.
 
 ## Características
