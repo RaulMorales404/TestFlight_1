@@ -85,7 +85,7 @@ export const SearchFlight = () => {
                 title="Origin"
                 subt={stateDestination.origin}
                 changeColor={true}
-                w={ Platform.OS=='ios'? "162px":"48%"}
+                w={ Platform.OS=='ios'? "48%":"48%"}
                 h={ Platform.OS=='ios'? "64px":"70px"}
                 updateState={updateState}
                 keyInput="origin"
@@ -94,7 +94,7 @@ export const SearchFlight = () => {
                 title={'Destination'}
                 subt={stateDestination.destination}
                 changeColor={true}
-                w={ Platform.OS=='ios'? "162px":"48%"}
+                w={ Platform.OS=='ios'? "48%":"48%"}
                 h={ Platform.OS=='ios'? "64px":"70px"}
                 keyInput="destination"
                 updateState={updateState}
@@ -119,11 +119,11 @@ export const SearchFlight = () => {
               changeColor={false}
               keyInput={'flightNumber'}
               updateState={updateState}
-              w={ Platform.OS=='ios'? "130px":"40%"}
+              w={ Platform.OS=='ios'? "40%":"40%"}
               h={ Platform.OS=='ios'? "64px":"70px"}
             />
             <CustomImputDate
-              w={ Platform.OS=='ios'? "200px":"57%"}
+              w={ Platform.OS=='ios'? "57%":"57%"}
               h={ Platform.OS=='ios'? "64px":"70px"}
               title={'Date of departure'}
               text={stateDestination.dateDestine}

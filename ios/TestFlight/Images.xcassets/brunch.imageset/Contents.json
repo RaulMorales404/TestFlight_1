@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "brunch.png",
+      "filename" : "playstore.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "brunch 1.png",
+      "filename" : "playstore 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "brunch 2.png",
+      "filename" : "playstore 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
