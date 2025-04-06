@@ -38,7 +38,7 @@ export const Subtitle = styled.Text`
 
 export const Tabs = styled.View`
   flex-direction: row;
-  
+
   justify-content: center;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -54,8 +54,6 @@ export const TabButton = styled.Pressable<{active: boolean}>`
   padding: 10px 10px;
   background-color: ${({active}) => (active ? 'black' : 'transparent')};
   align-items: center;
- 
-  
 `;
 
 export const TabText = styled.Text<{active: boolean}>`
@@ -89,7 +87,7 @@ export const DateText = styled.Text`
 export const SearchButton = styled.TouchableOpacity<{
   backgroundColor?: string;
 }>`
-  background-color:${({backgroundColor = 'blsck'}) => backgroundColor};
+  background-color: ${({backgroundColor = 'blsck'}) => backgroundColor};
   border-radius: 12px;
   padding: 16px;
   align-items: center;
@@ -105,7 +103,7 @@ export const SearchButtonText = styled.Text`
 export const FooterText = styled.Text`
   text-align: center;
   color: #666;
-  line-height:25px;
+  line-height: 25px;
 `;
 
 export const LinkText = styled.Text`
@@ -128,6 +126,10 @@ export const FlexView = styled.View<{
   shrink?: number;
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
   padding?: string;
+  paddingTop?: string;
+  paddingBottom: string;
+  paddingLeft: string;
+  paddingRight: string;
   margin?: string;
   marginBottom?: string;
   marginRigth?: string;
@@ -148,6 +150,10 @@ export const FlexView = styled.View<{
   flex-shrink: ${({shrink = 1}) => shrink};
   flex-wrap: ${({wrap = 'nowrap'}) => wrap};
   padding: ${({padding = '0'}) => padding};
+  padding-top: ${({paddingTop = '0'}) => paddingTop};
+  padding-bottom: ${({paddingBottom= '0'}) => paddingBottom};
+  padding-left: ${({paddingLeft = '0'}) => paddingLeft};
+  padding-right: ${({paddingRight = '0'}) => paddingRight};
   margin: ${({margin = '0'}) => margin};
   margin-right: ${({marginRigth = '0'}) => marginRigth};
   margin-bottom: ${({marginBottom = '0'}) => marginBottom};
@@ -211,7 +217,6 @@ export const CustomText = styled.Text<{
   line-height: ${({lineHeight = '20px'}) => lineHeight};
   letter-spacing: ${({letterSpacing = '0'}) => letterSpacing};
   text-transform: ${({textTransform = 'none'}) => textTransform};
-  
 `;
 
 export const RouteInfo = styled.View`
@@ -248,7 +253,6 @@ export const ContainerDetail = styled.View`
   height: 550px;
 `;
 
-
 export const ContainerTextInput = styled.TouchableOpacity<{
   height?: string | number;
   width?: string | number;
@@ -257,14 +261,12 @@ export const ContainerTextInput = styled.TouchableOpacity<{
   padding?: string | number;
   marginBottom?: string | number;
   borderColor?: string;
-
 }>`
-  height: ${({ height = 60 }) => height};
-  width: ${({ width = 130 }) => width};
-  border-width: ${({ borderWidth = 2 }) => borderWidth};
-  border-radius: ${({ borderRadius = 12 }) => borderRadius};
-  padding: ${({ padding = 15 }) => padding};
-  margin-bottom: ${({ marginBottom = 15 }) => marginBottom};
-  border-color: ${({ borderColor = '#000' }) => borderColor};
-  
+  height: ${({height = 60}) => height};
+  width: ${({width = 130}) => width};
+  border-width: ${({borderWidth = 2}) => borderWidth};
+  border-radius: ${({borderRadius = 12}) => borderRadius};
+  padding: ${({padding = 15}) => padding};
+  margin-bottom: ${({marginBottom = 15}) => marginBottom};
+  border-color: ${({borderColor = '#000'}) => borderColor};
 `;

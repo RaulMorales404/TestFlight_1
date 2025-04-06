@@ -4,7 +4,12 @@ import {
   FlexView,
 } from '@components/styles/styles';
 import {useState} from 'react';
-import {TextInput, View, TouchableWithoutFeedback} from 'react-native';
+import {
+  TextInput,
+  View,
+  TouchableWithoutFeedback,
+  Platform,
+} from 'react-native';
 
 interface Props {
   title: string;
@@ -12,15 +17,16 @@ interface Props {
   keyInput: string;
   changeColor: boolean;
   updateState: (key: string, value: string) => void;
-
+  h?: string;
   w?: string;
 }
 
 export const CustomImputText = ({
   title = 'Flight number',
-  subt = 'AM', 
+  subt = 'AM',
   keyInput,
   w = '130px',
+  h = '64px',
   updateState,
   changeColor = false,
 }: Props) => {
@@ -38,7 +44,7 @@ export const CustomImputText = ({
     <ContainerTextInput
       activeOpacity={1}
       onPress={handleStartWriting}
-      height="64px"
+      height={h}
       width={w}
       borderWidth="2px"
       borderRadius="10px"
@@ -47,10 +53,10 @@ export const CustomImputText = ({
       borderColor="#000">
       <View>
         <CustomText
-          fontSize="10px"
+          fontSize={Platform.OS == 'ios' ? '10px' : '12px'}
+          lineHeight={Platform.OS == 'ios' ? '13px' : '15px'}
           fontWeight="400"
-          color="#000000"
-          lineHeight="13px">
+          color="#000000">
           {title}
         </CustomText>
 
@@ -62,29 +68,30 @@ export const CustomImputText = ({
             onFocus={handleStartWriting}
             placeholder="Enter text"
             autoFocus={true}
+            style={{top: Platform.OS == 'ios' ? 0 : -10}}
           />
         ) : (
           <TouchableWithoutFeedback onPress={handleStartWriting}>
             <View>
               <FlexView
-                direction={changeColor?"row": "row-reverse"}
+                direction={changeColor ? 'row' : 'row-reverse'}
                 justifyContent="flex-start"
                 alignSelf="flex-start">
                 <CustomText
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  fontSize="16px"
+                  fontSize={Platform.OS == 'ios' ? '16px' : '17px'}
+                  lineHeight={Platform.OS == 'ios' ? '18px' : '22px'}
                   fontWeight="600"
                   color={changeColor ? '#000000' : '#000000'}
-                  marginRight="5px"
-                  lineHeight="18px">
+                  marginRight="5px">
                   {subt}
                 </CustomText>
                 <CustomText
-                  fontSize="16px"
-                  fontWeight="600"
-                  color={changeColor ? '#0000004D' : '#0000004D' }
-                  lineHeight="18px">
+                  fontSize={Platform.OS == 'ios' ? '16px' : '17px'}
+                  lineHeight={Platform.OS == 'ios' ? '18px' : '22px'}
+                  fontWeight="700"
+                  color={changeColor ? '#0000004D' : '#0000004D'}>
                   {changeColor ? subt.substring(0, 3).toUpperCase() : 'AM '}
                 </CustomText>
               </FlexView>

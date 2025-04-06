@@ -13,7 +13,7 @@ import {
 } from '@components/styles/styles';
 
 import {useSearchFlightViewModel} from '@viewmodels/useSearchFlightViewModel';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, Platform, View} from 'react-native';
 
 export const SearchFlight = () => {
   const {
@@ -85,7 +85,8 @@ export const SearchFlight = () => {
                 title="Origin"
                 subt={stateDestination.origin}
                 changeColor={true}
-                w="162px"
+                w={ Platform.OS=='ios'? "162px":"48%"}
+                h={ Platform.OS=='ios'? "64px":"70px"}
                 updateState={updateState}
                 keyInput="origin"
               />
@@ -93,7 +94,8 @@ export const SearchFlight = () => {
                 title={'Destination'}
                 subt={stateDestination.destination}
                 changeColor={true}
-                w="162px"
+                w={ Platform.OS=='ios'? "162px":"48%"}
+                h={ Platform.OS=='ios'? "64px":"70px"}
                 keyInput="destination"
                 updateState={updateState}
               />
@@ -101,6 +103,7 @@ export const SearchFlight = () => {
 
             <CustomImputDate
               w="100%"
+              h={ Platform.OS=='ios'? "64px":"70px"}
               title={'Date of departure'}
               text={stateDestination.dateflightNumber}
               changeColor={false}
@@ -116,9 +119,12 @@ export const SearchFlight = () => {
               changeColor={false}
               keyInput={'flightNumber'}
               updateState={updateState}
+              w={ Platform.OS=='ios'? "130px":"40%"}
+              h={ Platform.OS=='ios'? "64px":"70px"}
             />
             <CustomImputDate
-              w="200px"
+              w={ Platform.OS=='ios'? "200px":"57%"}
+              h={ Platform.OS=='ios'? "64px":"70px"}
               title={'Date of departure'}
               text={stateDestination.dateDestine}
               changeColor={false}

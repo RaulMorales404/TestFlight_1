@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View, Text} from 'react-native';
+import {Image, TouchableOpacity, View, Text, Platform} from 'react-native';
 import {ContainerTextInput, CustomText, FlexView} from '../styles/styles';
 import {IconCalendar} from '../../assets/icons';
 import DatePicker from 'react-native-date-picker';
@@ -12,6 +12,7 @@ interface Props {
   keyInput:string;
   changeColor: boolean;
   w?: string;
+  h?: string;
 }
 
 export const CustomImputDate = ({
@@ -19,6 +20,7 @@ export const CustomImputDate = ({
   updateState,
   keyInput,
   text = '500',
+  h="64px",
   w = '130px',
   changeColor = false,
 }: Props) => {
@@ -28,7 +30,7 @@ export const CustomImputDate = ({
 
   return (
     <ContainerTextInput
-      height="64px"
+      height={h}
       width={w}
       borderWidth="2px"
       borderRadius="10px"
@@ -41,20 +43,24 @@ export const CustomImputDate = ({
         justifyContent="space-between">
         <FlexView direction="column">
           <CustomText
-            fontSize="10px"
+            fontSize={Platform.OS=='ios'?"10px":'12px'}
+            lineHeight={Platform.OS=='ios'?"14px":'16px'}
             fontWeight="400"
             color="#000000"
-            lineHeight="14px">
+            >
             {title}
           </CustomText>
           <FlexView direction="row">
             <CustomText
-              fontSize="16px"
+              fontSize={Platform.OS=='ios'?"16px":'18px'}
+              lineHeight={Platform.OS=='ios'?"17px":'19px'}
+              // fontSize="16px"
+              //  marginRight="10px"
               fontWeight="600"
               color="#000000"
-              marginRight="10px"
-              lineHeight="18px">
-              {text}
+             
+              >
+              {text} 
             </CustomText>
           </FlexView>
         </FlexView>

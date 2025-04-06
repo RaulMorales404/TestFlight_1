@@ -126,10 +126,7 @@ export function DetailsFlight() {
             borderBottomWidth: 1,
             borderColor: '#E9E9E9',
           }}>
-          <FlexView
-            direction="row"
-            justifyContent="space-between"
-            padding="0px 15px">
+          <FlexView direction="row" justifyContent="space-between">
             <View>
               <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
                 {format(new Date(dataDetails.departureDateTime), 'HH:mm')}
@@ -154,10 +151,7 @@ export function DetailsFlight() {
             </View>
           </FlexView>
 
-          <FlexView
-            direction="row"
-            justifyContent="space-between"
-            padding="0px 15px">
+          <FlexView direction="row" justifyContent="space-between">
             <View>
               <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
                 {dataDetails.departureAirport}

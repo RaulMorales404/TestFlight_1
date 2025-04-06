@@ -90,9 +90,23 @@ export const ResultFlight = ({route}) => {
           </CustomText>
         </View>
       </FlexView>
-      <View></View>
 
       <Animated.FlatList
+        ListEmptyComponent={
+          <FlexView
+            direction="column"
+            justifyContent="center"
+            alignSelf="center"
+            height="400px">
+            <CustomText
+              fontSize="40px"
+              fontWeight="400"
+              color="#00000080"
+              lineHeight="50px">
+              No hay vuelos disponibles
+            </CustomText>
+          </FlexView>
+        } // Aquí agregas el mensaje para cuando no haya datos
         data={flightData}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<View style={{paddingBottom: 0}} />}
@@ -103,9 +117,7 @@ export const ResultFlight = ({route}) => {
         )}
         style={{backgroundColor: 'white'}}
         ListFooterComponent={
-          <View style={{height: 150, justifyContent: 'center'}}>
-            {/* <ActivityIndicator color={'#2CB3FC'} size={50} /> */}
-          </View>
+          <View style={{height: 150, justifyContent: 'center'}} />
         }
         renderToHardwareTextureAndroid
         keyExtractor={(item, index) => index.toString()}

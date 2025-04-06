@@ -1,6 +1,6 @@
-import { IconArrival, IconDeparture } from "@assets/icons";
-import { CustomText, FlexView } from "@components/styles/styles";
-import { Image, View } from "react-native";
+import {IconArrival, IconDeparture} from '@assets/icons';
+import {CustomText, FlexView} from '@components/styles/styles';
+import {Image, Platform, View} from 'react-native';
 
 interface Props {
   icon?: string;
@@ -22,14 +22,13 @@ export const CartDetailFlight = ({
 
   return (
     <View>
-      <FlexView direction="row" justifyContent="space-between" width="100%" >
+      <FlexView direction="row" justifyContent="space-between" width="100%">
         <FlexView width="100%" direction="row" justifyContent="space-between">
           <FlexView direction="row">
             <Image
               source={iconsSources[icon]}
               style={{width: 20, height: 20}}
             />
-
             <CustomText
               fontSize="14px"
               marginLeft="7px"
@@ -50,11 +49,18 @@ export const CartDetailFlight = ({
         </FlexView>
       </FlexView>
 
-      <FlexView padding="10px 15px" direction="row" 
-      borderRadius="8px" marginBottom="20px"
-      borderBottomEndRadius="8px"
-      borderTopLeftRadius="8px"
-       backgroundColor="#F7F7F7">
+      <FlexView
+
+        paddingTop={Platform.OS=='ios'? "5px":"5px"}
+        paddingBottom={Platform.OS=='ios'? "10px":"10px"}
+        paddingLeft={Platform.OS=='ios'? "15px":"15px"}
+        paddingRight={Platform.OS=='ios'? "15px":"15px"}
+        direction="row"
+        borderRadius="8px"
+        marginBottom="20px"
+        borderBottomEndRadius="8px"
+        borderTopLeftRadius="8px"
+        backgroundColor="#F7F7F7">
         {data.map((item: {title: string; data: string}) => (
           <FlexView direction="column" marginRigth="36px" key={item.title}>
             <CustomText

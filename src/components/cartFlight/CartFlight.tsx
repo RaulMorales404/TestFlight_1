@@ -5,13 +5,16 @@ import {
   FlexView,
   RouteInfo,
 } from '@components/styles/styles';
-import { getStatusFlight, getTypeFlight, getTypeFlightName } from '@helpers/TypeFlight/TypeFlight';
-import { format } from 'date-fns';
+import {
+  getStatusFlight,
+  getTypeFlight,
+  getTypeFlightName,
+} from '@helpers/TypeFlight/TypeFlight';
+import {format} from 'date-fns';
 import {useState} from 'react';
 import {Image, Switch, View} from 'react-native';
 
 type FlightStatus = 'DELAYED' | 'ON_TIME' | 'ARRIVED';
-
 
 interface CartFlightProps {
   detailFligth: {
@@ -19,7 +22,7 @@ interface CartFlightProps {
     departureAirport: string;
     arrivalAirport: string;
     departureDateTime: Date; // Cambiado a Date
-    arrivalDateTime: Date;   // Cambiado a Date
+    arrivalDateTime: Date; // Cambiado a Date
     flightStatus: 'ARRIVED' | 'DEPARTED' | 'ON_TIME' | string;
     operatingCarrier: string;
     marketingCarrier: string;
@@ -32,8 +35,6 @@ interface CartFlightProps {
 }
 export const CartFlight = ({detailFligth}: CartFlightProps) => {
   const [isFavorite, setIsFavorite] = useState(true);
-
- 
 
   const status: FlightStatus = detailFligth.flightStatus;
   return (
@@ -76,7 +77,10 @@ export const CartFlight = ({detailFligth}: CartFlightProps) => {
         <FlexView
           direction="row"
           justifyContent="space-between"
-          padding="0px 15px">
+          paddingTop="0px"
+          paddingBottom="0px"
+          paddingLeft="15px"
+          paddingRight="15px">
           <View>
             <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
               {format(new Date(detailFligth.departureDateTime), 'HH:mm')}
@@ -96,7 +100,7 @@ export const CartFlight = ({detailFligth}: CartFlightProps) => {
           </View>
           <View>
             <CustomText fontSize="22px" fontWeight="700" lineHeight="22px">
-            {format(new Date(detailFligth.arrivalDateTime), 'HH:mm')}
+              {format(new Date(detailFligth.arrivalDateTime), 'HH:mm')}
             </CustomText>
           </View>
         </FlexView>
@@ -104,7 +108,10 @@ export const CartFlight = ({detailFligth}: CartFlightProps) => {
         <FlexView
           direction="row"
           justifyContent="space-between"
-          padding="0px 15px">
+          paddingTop="0px"
+          paddingBottom="0px"
+          paddingLeft="15px"
+          paddingRight="15px">
           <View>
             <CustomText fontSize="14px" fontWeight="400" lineHeight="22px">
               {detailFligth.departureAirport}
@@ -116,7 +123,9 @@ export const CartFlight = ({detailFligth}: CartFlightProps) => {
               fontWeight="600"
               lineHeight="22px"
               color="#00000066">
-              {`${Math.floor(detailFligth.flightDurationInMinutes / 60)}h ${detailFligth.flightDurationInMinutes % 60}m`}
+              {`${Math.floor(detailFligth.flightDurationInMinutes / 60)}h ${
+                detailFligth.flightDurationInMinutes % 60
+              }m`}
             </CustomText>
           </View>
           <View>
@@ -131,7 +140,10 @@ export const CartFlight = ({detailFligth}: CartFlightProps) => {
         <FlexView
           direction="row"
           justifyContent="space-between"
-          padding="0px 15px">
+          paddingTop="0px"
+          paddingBottom="0px"
+          paddingLeft="15px"
+          paddingRight="15px">
           <View>
             <CustomText fontSize="12px" fontWeight="600" lineHeight="20px">
               {detailFligth.operatingCarrier} {detailFligth.operatingFlightCode}

@@ -1,5 +1,6 @@
 import {IconAire, IconArrived, IconDelayed} from '@assets/icons';
 import {colors} from '@assets/themes/colors';
+import {Platform} from 'react-native';
 
 export const getTypeFlight = {
   DELAYED: colors.yellow,
@@ -10,15 +11,25 @@ export const getTypeFlight = {
 export const getStatusFlight = {
   DELAYED: {
     icon: IconDelayed,
-    size: {width: 165, height: 20, top: -5},
+    size: {
+      width: Platform.OS == 'ios' ? 165 : 200,
+      height: Platform.OS == 'ios' ? 20 : 24,
+      top: -5,
+    },
   },
   ON_TIME: {
     icon: IconAire,
-    size: {width: 165, height: 12},
+    size: {
+      width: Platform.OS == 'ios' ? 165 : 210,
+      height: Platform.OS == 'ios' ? 12 : 16,
+    },
   },
   ARRIVED: {
     icon: IconArrived,
-    size: {width: 160, height: 10},
+    size: {
+      width: Platform.OS == 'ios' ? 165 : 200,
+      height: Platform.OS == 'ios' ? 11 : 15,
+    },
   },
 };
 
