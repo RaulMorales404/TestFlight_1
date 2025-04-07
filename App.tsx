@@ -1,39 +1,18 @@
 import './gesture-handler';
 import 'react-native-reanimated';
+import React from 'react';
+import { NavigationStack } from '@navigation/NavigationStack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import {NavigationContainer} from '@react-navigation/native';
-import TabNavigation from './src/navigation/TabNavigation';
-import React, {useEffect} from 'react';
-import {useStore} from '@store/useStore';
-import Toast from 'react-native-toast-message';
+  const queryClient = new QueryClient();
 
 const App = () => {
-  const {getArticles,error} = useStore();
-  
-  const showErrorToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error',
-      text2: 'Algo salió mal 🔌',
-    });
-  };
-  useEffect(() => {
-    getArticles();
-    return () => {};
-  }, []);
 
-  useEffect(()=>{
-    if(error){
-      showErrorToast();
-    }
-   
-  },[error])
   return (
-    <NavigationContainer>
-      
-      <TabNavigation></TabNavigation>
-      <Toast />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationStack/>
+    </QueryClientProvider>
+    
   );
 };
 
