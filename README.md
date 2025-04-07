@@ -34,6 +34,7 @@ Este proyecto es una aplicación móvil que permite consultar información sobre
 
 ```bash
 
+Emulador de prubas requiere: Pixel 8 Pro API 34 - Android:14.0 x86_64
 yarn install
 
 npm run start
@@ -44,7 +45,8 @@ npx react native run-android
 
 ```bash
 # using npm
-Emulador de prubas requiere: ios
+Emulador de prubas requiere: iphone 15 - Ios :17.5
+
 yarn install 
 npx pod-install ios
 
