@@ -1,6 +1,7 @@
 import {IconArrow, IconCalendar, IconLeftArrow} from '@assets/icons';
 import {CartFlight} from '@components/cartFlight/CartFlight';
 import {CustomText, FlexView} from '@components/styles/styles';
+import { abbreviateName } from '@helpers/TypeFlight/TypeFlight';
 import {useResultFlightViewModel} from '@viewmodels/useResultFlightViewModel';
 import {Animated, Image, Text, TouchableOpacity, View} from 'react-native';
 
@@ -42,7 +43,7 @@ export const ResultFlight = ({route}) => {
                   fontWeight="700"
                   textAlign="right"
                   lineHeight="32px">
-                  {dataSearch.origin.substring(0, 3).toUpperCase()}
+                  { abbreviateName(dataSearch.origin)}
                 </CustomText>
                 <Image
                   source={IconArrow}
@@ -53,7 +54,7 @@ export const ResultFlight = ({route}) => {
                   fontWeight="700"
                   textAlign="right"
                   lineHeight="32px">
-                  {dataSearch.destinate.substring(0, 3).toUpperCase()}
+                  {abbreviateName(dataSearch.destinate)}
                 </CustomText>
               </FlexView>
             )}

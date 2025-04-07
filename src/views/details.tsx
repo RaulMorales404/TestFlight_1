@@ -191,7 +191,7 @@ export function DetailsFlight() {
         <CartDetailFlight
           icon="Arrival"
           title={'Arrival'}
-          subTitle={`${dataDetails.destination}  - Terminal ${dataDetails.arrivalTerminal}`}
+          subTitle={`Cancún - Terminal ${dataDetails.arrivalTerminal}`}
           data={arrive}
         />
       </ContainerDetail>
