@@ -1,5 +1,6 @@
 import {IconAire, IconArrived, IconDelayed} from '@assets/icons';
 import {colors} from '@assets/themes/colors';
+import { abreviaciones } from '@models/cityLookupDict';
 import {Platform} from 'react-native';
 
 export const getTypeFlight = {
@@ -38,3 +39,19 @@ export const getTypeFlightName = {
   ON_TIME: 'In the air',
   ARRIVED: 'Arrived',
 };
+
+export const  abbreviateName=(input: string): string | null =>{
+  
+  const textClean = input.normalize("NFD") 
+  .toLowerCase()                     
+  .replace(/[\u0300-\u036f]/g, "")      
+  .replace(/[^a-zA-Z0-9\s]/g, "")         
+  .trim();
+  
+  if (abreviaciones[textClean]) {
+    return abreviaciones[textClean];
+  }else {
+   return input.substring(0, 3).toUpperCase();
+  }
+ 
+}

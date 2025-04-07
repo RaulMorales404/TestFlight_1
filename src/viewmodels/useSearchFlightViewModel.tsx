@@ -38,9 +38,7 @@ export const useSearchFlightViewModel = () => {
       activeTab === 'destination' ? '' : stateDestination.flightNumber,
   };
 
-  const {fetchData} = useDestinationFlightViewModel(
-    serhRef.current === 'destination' ? '' : stateDestination.flightNumber,
-  );
+  const {fetchData} = useDestinationFlightViewModel(updateStateSelecyed );
 
   const goToProfile = async () => {
     try {
