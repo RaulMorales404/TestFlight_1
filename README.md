@@ -29,3 +29,27 @@ Este proyecto es una aplicación móvil que permite consultar información sobre
 1. Clona este repositorio en tu máquina local:
    ```bash
    git clone https://github.com/tu-usuario/agenda-de-vuelos.git
+
+### For Android
+
+```bash
+
+yarn install
+
+npm run start
+npx react native run-android 
+```
+
+### For iOS
+
+```bash
+# using npm
+Emulador de prubas requiere: ios
+yarn install 
+npx pod-install ios
+
+npm run start
+npx react-native run-ios
+```
+
+   
