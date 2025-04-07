@@ -13,7 +13,7 @@ import {
 } from '@components/styles/styles';
 
 import {useSearchFlightViewModel} from '@viewmodels/useSearchFlightViewModel';
-import {ActivityIndicator, Platform, View} from 'react-native';
+import {ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
 
 export const SearchFlight = () => {
   const {
@@ -28,7 +28,11 @@ export const SearchFlight = () => {
   } = useSearchFlightViewModel();
 
   return (
-    <View style={{flex: 1}}>
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  >
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <FlexView
         height="200px"
         width="100%"
@@ -169,6 +173,7 @@ export const SearchFlight = () => {
           />
         )}
       </Container>
-    </View>
+  </ScrollView>
+  </KeyboardAvoidingView>
   );
 };

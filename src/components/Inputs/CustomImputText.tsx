@@ -68,7 +68,7 @@ export const CustomImputText = ({
             onFocus={handleStartWriting}
             placeholder="Enter text"
             autoFocus={true}
-            style={{top: Platform.OS == 'ios' ? 0 : -10}}
+            style={{top: Platform.OS == 'ios' ? 0 : -10,color:'#000'}}
           />
         ) : (
           <TouchableWithoutFeedback onPress={handleStartWriting}>
